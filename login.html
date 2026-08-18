@@ -1,0 +1,329 @@
+```html
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Aneta S-T | Admin Login</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #edf2e7, #f7f5ec);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #354238;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: #fffef8;
+      border: 1px solid #d7e0d0;
+      border-radius: 24px;
+      padding: 45px 35px;
+      box-shadow: 0 25px 70px rgba(63, 80, 65, 0.12);
+    }
+
+    .logo {
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #536b58;
+      margin-bottom: 10px;
+    }
+
+    .logo span {
+      color: #b5a34f;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #718075;
+      margin-bottom: 35px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: bold;
+      color: #536b58;
+    }
+
+    input {
+      width: 100%;
+      min-height: 50px;
+      padding: 14px 16px;
+      border: 1px solid #d6e0d0;
+      border-radius: 10px;
+      background: #fbfcf6;
+      color: #354238;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #b5a446;
+      box-shadow: 0 0 0 3px rgba(181, 164, 70, 0.11);
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 20px;
+      background: #536b58;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #405544;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+      transform: none;
+    }
+
+    #message {
+      min-height: 24px;
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #8d7d29;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-box">
+
+    <div class="logo">
+      ANETA <span>S-T</span>
+    </div>
+
+    <p class="subtitle">
+      Admin панел
+    </p>
+
+    <form id="loginForm">
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Внеси email"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="password">
+          Лозинка
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Внеси лозинка"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+      <button
+        type="submit"
+        id="loginButton"
+      >
+        Најави се
+      </button>
+
+      <p id="message"></p>
+
+    </form>
+
+    <a
+      href="index.html"
+      class="back-link"
+    >
+      ← Назад кон страната
+    </a>
+
+  </div>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL =
+      "https://rrzhahtngfyibmluywnx.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const emailInput =
+      document.getElementById("email");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const message =
+      document.getElementById("message");
+
+
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+          "Се најавува...";
+
+        message.textContent = "";
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth.signInWithPassword({
+              email: email,
+              password: password
+            });
+
+
+          if (error) {
+
+            console.error(
+              "LOGIN ERROR:",
+              error
+            );
+
+            message.textContent =
+              "Погрешен email или лозинка.";
+
+            message.style.color =
+              "#b85f5f";
+
+            return;
+          }
+
+
+          if (data.session) {
+
+            message.textContent =
+              "✅ Успешно најавување.";
+
+            message.style.color =
+              "#536b58";
+
+            /*
+              Подоцна ова ќе го смениме
+              во admin.html.
+            */
+            setTimeout(function() {
+
+              window.location.href =
+                "admin.html";
+
+            }, 500);
+
+          }
+
+        } catch (error) {
+
+          console.error(error);
+
+          message.textContent =
+            "Се појави грешка при најавувањето.";
+
+          message.style.color =
+            "#b85f5f";
+
+        } finally {
+
+          loginButton.disabled = false;
+
+          loginButton.textContent =
+            "Најави се";
+
+        }
+
+      }
+    );
+  </script>
+
+</body>
+</html>
+```
