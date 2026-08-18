@@ -31,6 +31,7 @@ img {
   margin: auto;
 }
 
+
 /* =========================
    COLORS
 ========================= */
@@ -199,19 +200,12 @@ nav a:hover {
   font-size: clamp(46px, 5.5vw, 74px);
   line-height: 1;
   color: white;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .hero-center h1 span {
   display: block;
   color: var(--yellow-light);
-}
-
-.hero-subtitle {
-  max-width: 550px;
-  margin: 0 auto 24px;
-  color: #fbfaf2;
-  font-size: 15px;
 }
 
 
@@ -646,10 +640,6 @@ footer p {
 
   .hero-center h1 {
     font-size: 42px;
-  }
-
-  .hero-subtitle {
-    font-size: 13px;
   }
 
   .section {
