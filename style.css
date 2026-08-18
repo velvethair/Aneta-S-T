@@ -26,16 +26,13 @@ a {
   margin: auto;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 .header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(255, 250, 252, 0.96);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 250, 252, 0.97);
   border-bottom: 1px solid #eedee5;
 }
 
@@ -92,9 +89,7 @@ nav a:hover {
   transform: translateY(-2px);
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero {
   min-height: 670px;
@@ -196,9 +191,7 @@ nav a:hover {
   margin-top: 5px;
 }
 
-/* =========================
-   SECTIONS
-========================= */
+/* SECTIONS */
 
 .section {
   padding: 100px 0;
@@ -261,9 +254,7 @@ nav a:hover {
   font-weight: bold;
 }
 
-/* =========================
-   SERVICES
-========================= */
+/* SERVICES */
 
 .services {
   background: #fff8fb;
@@ -327,9 +318,7 @@ nav a:hover {
   min-height: 75px;
 }
 
-/* =========================
-   GALLERY
-========================= */
+/* GALLERY */
 
 .gallery {
   background: #ffffff;
@@ -368,9 +357,7 @@ nav a:hover {
   font-size: 22px;
 }
 
-/* =========================
-   BOOKING
-========================= */
+/* BOOKING */
 
 .booking {
   background: #f8e8ee;
@@ -416,12 +403,20 @@ input,
 select {
   width: 100%;
   padding: 14px 16px;
+  min-height: 48px;
   border: 1px solid #ead4dc;
   border-radius: 12px;
   background: #fffafa;
   color: #493a40;
   outline: none;
   font-size: 14px;
+}
+
+input[type="date"] {
+  display: block;
+  cursor: pointer;
+  appearance: auto;
+  -webkit-appearance: auto;
 }
 
 input:focus,
@@ -435,16 +430,20 @@ select:focus {
   margin-top: 5px;
 }
 
+.full-button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 #formMessage {
   margin-top: 15px;
   text-align: center;
   color: #b86f87;
   font-weight: bold;
+  min-height: 24px;
 }
 
-/* =========================
-   CONTACT
-========================= */
+/* CONTACT */
 
 .contact {
   background: #33282d;
@@ -471,9 +470,7 @@ select:focus {
   margin-bottom: 15px;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer {
   background: #251d21;
@@ -492,9 +489,7 @@ footer .logo {
   font-size: 22px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media (max-width: 900px) {
 
