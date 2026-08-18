@@ -10,8 +10,8 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #080808;
-  color: #f5f1e8;
+  background: #1a1210;
+  color: #f6efe5;
   line-height: 1.6;
 }
 
@@ -40,9 +40,9 @@ img {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(5, 5, 5, 0.96);
+  background: rgba(26, 18, 16, 0.96);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid rgba(214, 177, 100, 0.20);
 }
 
 .nav {
@@ -58,10 +58,11 @@ img {
   font-size: 25px;
   font-weight: bold;
   letter-spacing: 2px;
+  color: #f6efe5;
 }
 
 .logo span {
-  color: #d4af37;
+  color: #d6b164;
 }
 
 nav {
@@ -70,23 +71,23 @@ nav {
 }
 
 nav a {
-  color: #d4d0c8;
+  color: #ddd2c5;
   font-size: 13px;
   transition: 0.3s;
 }
 
 nav a:hover {
-  color: #d4af37;
+  color: #d6b164;
 }
 
 .nav-button,
 .button {
   display: inline-block;
-  background: #d4af37;
-  color: #090909;
+  background: #d6b164;
+  color: #241915;
   padding: 14px 24px;
-  border-radius: 3px;
-  border: 1px solid #d4af37;
+  border-radius: 4px;
+  border: 1px solid #d6b164;
   cursor: pointer;
   transition: 0.3s;
   font-size: 13px;
@@ -96,28 +97,40 @@ nav a:hover {
 
 .nav-button:hover,
 .button:hover {
-  background: #efd26c;
+  background: #e6c887;
+  border-color: #e6c887;
   transform: translateY(-2px);
+}
+
+.button-outline {
+  background: transparent;
+  color: #d6b164;
+}
+
+.button-outline:hover {
+  background: #d6b164;
+  color: #241915;
 }
 
 
 /* =========================
-   HERO IMAGE
+   HERO
 ========================= */
 
 .hero {
-  background: #050505;
-  padding: 45px 0;
+  background: #1a1210;
+  padding: 42px 0;
 }
 
 .hero-image {
   position: relative;
-  height: 590px;
+  height: 580px;
   width: 90%;
   max-width: 1250px;
   margin: auto;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(214, 177, 100, 0.32);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
 }
 
 .hero-image img {
@@ -133,14 +146,14 @@ nav a:hover {
   background:
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.68),
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.62)
+      rgba(34, 22, 18, 0.70),
+      rgba(34, 22, 18, 0.22),
+      rgba(34, 22, 18, 0.62)
     ),
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.58)
+      rgba(15, 10, 8, 0.10),
+      rgba(15, 10, 8, 0.50)
     );
 }
 
@@ -155,7 +168,7 @@ nav a:hover {
 }
 
 .eyebrow {
-  color: #d4af37;
+  color: #d6b164;
   font-size: 11px;
   font-weight: bold;
   letter-spacing: 4px;
@@ -168,17 +181,17 @@ nav a:hover {
   font-size: clamp(48px, 6vw, 82px);
   line-height: 0.98;
   margin-bottom: 25px;
-  color: #ffffff;
+  color: #fff8ee;
 }
 
 .hero-center h1 span {
   display: block;
-  color: #d4af37;
+  color: #d6b164;
 }
 
 .hero-subtitle {
-  color: #e8e1d5;
-  max-width: 560px;
+  color: #eee3d7;
+  max-width: 570px;
   margin: 0 auto 28px;
   font-size: 16px;
 }
@@ -193,7 +206,7 @@ nav a:hover {
 }
 
 .about {
-  background: #0b0b0b;
+  background: #221714;
 }
 
 .about-grid {
@@ -206,7 +219,8 @@ nav a:hover {
 .about-image {
   height: 520px;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  border: 1px solid rgba(214, 177, 100, 0.25);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
 }
 
 .about-image img {
@@ -227,18 +241,18 @@ nav a:hover {
 .about-text h2 span,
 .booking h2 span,
 .contact h2 span {
-  color: #d4af37;
+  color: #d6b164;
 }
 
 .about-text > p:not(.eyebrow) {
-  color: #aaa49b;
+  color: #c7b9aa;
   margin-bottom: 18px;
 }
 
 .text-link {
   display: inline-block;
   margin-top: 15px;
-  color: #d4af37;
+  color: #d6b164;
   font-weight: bold;
 }
 
@@ -248,7 +262,7 @@ nav a:hover {
 ========================= */
 
 .services {
-  background: #060606;
+  background: #17100e;
 }
 
 .section-heading {
@@ -265,11 +279,11 @@ nav a:hover {
 }
 
 .section-heading h2 span {
-  color: #d4af37;
+  color: #d6b164;
 }
 
 .section-heading > p:not(.eyebrow) {
-  color: #99938a;
+  color: #b9aa9d;
 }
 
 .services-grid {
@@ -281,23 +295,23 @@ nav a:hover {
 .service-card {
   min-height: 300px;
   padding: 38px 30px;
-  background: #111111;
-  border: 1px solid #262626;
+  background: linear-gradient(145deg, #2b1c17, #201512);
+  border: 1px solid rgba(214, 177, 100, 0.17);
   transition: 0.35s;
 }
 
 .service-card:hover {
   transform: translateY(-8px);
-  border-color: #d4af37;
-  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.08);
+  border-color: #d6b164;
+  box-shadow: 0 20px 50px rgba(214, 177, 100, 0.08);
 }
 
 .service-card.featured {
-  border-color: rgba(212, 175, 55, 0.7);
+  border-color: rgba(214, 177, 100, 0.65);
 }
 
 .service-number {
-  color: #d4af37;
+  color: #d6b164;
   font-size: 12px;
   letter-spacing: 3px;
   margin-bottom: 45px;
@@ -307,16 +321,17 @@ nav a:hover {
   font-family: Georgia, serif;
   font-size: 30px;
   margin-bottom: 16px;
+  color: #f7eee4;
 }
 
 .service-card p {
-  color: #a19a91;
+  color: #bcaea0;
   font-size: 15px;
   min-height: 90px;
 }
 
 .service-card a {
-  color: #d4af37;
+  color: #d6b164;
   font-weight: bold;
   font-size: 14px;
 }
@@ -330,17 +345,17 @@ nav a:hover {
   position: relative;
   width: 88%;
   max-width: 1250px;
-  height: 460px;
-  margin: 70px auto;
+  height: 440px;
+  margin: 65px auto;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(214, 177, 100, 0.22);
 }
 
 .feature-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.48);
+  filter: sepia(8%) brightness(0.56);
 }
 
 .feature-overlay {
@@ -357,10 +372,11 @@ nav a:hover {
   font-family: Georgia, serif;
   font-size: clamp(40px, 5vw, 68px);
   line-height: 1;
+  color: #fff5e8;
 }
 
 .feature-overlay h2 span {
-  color: #d4af37;
+  color: #d6b164;
 }
 
 
@@ -369,7 +385,7 @@ nav a:hover {
 ========================= */
 
 .gallery {
-  background: #0b0b0b;
+  background: #221714;
 }
 
 .gallery-grid {
@@ -381,7 +397,7 @@ nav a:hover {
 .gallery-item {
   height: 360px;
   overflow: hidden;
-  border: 1px solid #252525;
+  border: 1px solid rgba(214, 177, 100, 0.16);
 }
 
 .gallery-large {
@@ -405,16 +421,17 @@ nav a:hover {
 ========================= */
 
 .booking {
-  background: #050505;
+  background: #17100e;
 }
 
 .booking-box {
-  background: #111111;
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: linear-gradient(145deg, #2a1b16, #211512);
+  border: 1px solid rgba(214, 177, 100, 0.28);
   padding: 65px;
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: 75px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
 }
 
 .booking-intro {
@@ -424,7 +441,7 @@ nav a:hover {
 }
 
 .booking-intro > p:not(.eyebrow) {
-  color: #a19a91;
+  color: #bbaea2;
   max-width: 440px;
 }
 
@@ -435,7 +452,7 @@ nav a:hover {
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #ded8ce;
+  color: #eadfd3;
   font-size: 13px;
   font-weight: bold;
 }
@@ -445,18 +462,18 @@ select {
   width: 100%;
   min-height: 50px;
   padding: 14px 16px;
-  background: #080808;
-  border: 1px solid #2d2d2d;
-  color: #f5f1e8;
+  background: #120c0a;
+  border: 1px solid #46342a;
+  color: #f6efe5;
   outline: none;
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 14px;
 }
 
 input:focus,
 select:focus {
-  border-color: #d4af37;
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.12);
+  border-color: #d6b164;
+  box-shadow: 0 0 0 2px rgba(214, 177, 100, 0.12);
 }
 
 input[type="date"] {
@@ -466,13 +483,18 @@ input[type="date"] {
 }
 
 option {
-  background: #101010;
-  color: #f5f1e8;
+  background: #241713;
+  color: #f6efe5;
 }
 
 .full-button {
   width: 100%;
   margin-top: 5px;
+}
+
+.full-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
 }
 
 #formMessage {
@@ -487,7 +509,8 @@ option {
 ========================= */
 
 .contact {
-  background: #030303;
+  background: #120c0a;
+  border-top: 1px solid rgba(214, 177, 100, 0.12);
 }
 
 .contact-grid {
@@ -498,7 +521,7 @@ option {
 }
 
 .contact-info {
-  color: #a29b92;
+  color: #c0b1a4;
   font-size: 17px;
 }
 
@@ -512,8 +535,8 @@ option {
 ========================= */
 
 footer {
-  background: #000000;
-  border-top: 1px solid rgba(212, 175, 55, 0.22);
+  background: #0d0807;
+  border-top: 1px solid rgba(214, 177, 100, 0.20);
   padding: 28px 0;
 }
 
@@ -525,7 +548,7 @@ footer {
 }
 
 footer p {
-  color: #706a61;
+  color: #81756c;
   font-size: 13px;
 }
 
@@ -587,7 +610,7 @@ footer p {
   }
 
   .hero-image {
-    height: 510px;
+    height: 500px;
   }
 
   .hero-center h1 {
@@ -604,7 +627,7 @@ footer p {
 
   .feature-image {
     width: 94%;
-    height: 380px;
+    height: 370px;
     margin: 50px auto;
   }
 
