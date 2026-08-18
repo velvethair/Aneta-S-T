@@ -31,7 +31,6 @@ img {
   margin: auto;
 }
 
-
 /* =========================
    COLORS
 ========================= */
@@ -40,9 +39,10 @@ img {
   --green: #95aa94;
   --green-dark: #536b58;
   --green-soft: #dfe8d9;
+  --green-light: #edf2e7;
   --cream: #faf8ef;
   --yellow: #d7c36f;
-  --yellow-soft: #eee4a9;
+  --yellow-light: #eee4a9;
   --text: #354238;
   --muted: #708075;
   --white: #fffef8;
@@ -57,7 +57,7 @@ img {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(250, 248, 239, 0.96);
+  background: rgba(250, 248, 239, 0.97);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #dfe5d9;
 }
@@ -118,13 +118,13 @@ nav a:hover {
 }
 
 .button-outline {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.22);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
 .button-outline:hover {
-  background: var(--yellow-soft);
+  background: var(--yellow-light);
   color: var(--text);
 }
 
@@ -135,7 +135,7 @@ nav a:hover {
 
 .hero {
   background: #edf2e7;
-  padding: 28px 0 40px;
+  padding: 28px 0 38px;
 }
 
 .hero-image {
@@ -185,7 +185,7 @@ nav a:hover {
 }
 
 .eyebrow {
-  color: var(--yellow-soft);
+  color: var(--yellow-light);
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
   font-size: 11px;
   font-weight: bold;
@@ -204,7 +204,7 @@ nav a:hover {
 
 .hero-center h1 span {
   display: block;
-  color: var(--yellow-soft);
+  color: var(--yellow-light);
 }
 
 .hero-subtitle {
@@ -402,7 +402,7 @@ nav a:hover {
 }
 
 .feature-overlay h2 span {
-  color: var(--yellow-soft);
+  color: var(--yellow-light);
 }
 
 
