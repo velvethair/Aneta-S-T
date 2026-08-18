@@ -10,8 +10,8 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #f5f7ed;
-  color: #26352c;
+  background: #f7f5ec;
+  color: #354238;
   line-height: 1.6;
 }
 
@@ -37,14 +37,15 @@ img {
 ========================= */
 
 :root {
-  --green: #8fa98a;
-  --green-dark: #526b57;
-  --green-light: #dfe9d6;
-  --yellow: #e8d98a;
-  --yellow-light: #f5edbd;
-  --cream: #fffdf5;
-  --dark: #26352c;
-  --muted: #68756a;
+  --green: #95aa94;
+  --green-dark: #536b58;
+  --green-soft: #dfe8d9;
+  --cream: #faf8ef;
+  --yellow: #d7c36f;
+  --yellow-soft: #eee4a9;
+  --text: #354238;
+  --muted: #708075;
+  --white: #fffef8;
 }
 
 
@@ -56,9 +57,9 @@ img {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(255, 253, 245, 0.96);
+  background: rgba(250, 248, 239, 0.96);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid #dce4d4;
+  border-bottom: 1px solid #dfe5d9;
 }
 
 .nav {
@@ -66,7 +67,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 25px;
+  gap: 24px;
 }
 
 .logo {
@@ -78,22 +79,22 @@ img {
 }
 
 .logo span {
-  color: #c3a936;
+  color: #b5a34f;
 }
 
 nav {
   display: flex;
-  gap: 28px;
+  gap: 27px;
 }
 
 nav a {
-  color: #526156;
+  color: #5a695d;
   font-size: 13px;
   transition: 0.3s;
 }
 
 nav a:hover {
-  color: #9b8b2f;
+  color: #9b8b38;
 }
 
 .nav-button,
@@ -112,19 +113,19 @@ nav a:hover {
 
 .nav-button:hover,
 .button:hover {
-  background: #405644;
+  background: #405544;
   transform: translateY(-2px);
 }
 
 .button-outline {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.85);
 }
 
 .button-outline:hover {
-  background: var(--yellow-light);
-  color: var(--dark);
+  background: var(--yellow-soft);
+  color: var(--text);
 }
 
 
@@ -133,20 +134,20 @@ nav a:hover {
 ========================= */
 
 .hero {
-  background: #eef3e6;
-  padding: 30px 0;
+  background: #edf2e7;
+  padding: 28px 0 40px;
 }
 
 .hero-image {
   position: relative;
   width: 88%;
   max-width: 1200px;
-  height: 410px;
+  height: 400px;
   margin: auto;
   overflow: hidden;
-  border-radius: 24px;
-  border: 1px solid #d6dfcd;
-  box-shadow: 0 18px 45px rgba(65, 80, 65, 0.14);
+  border-radius: 26px;
+  border: 1px solid #d5dfcf;
+  box-shadow: 0 18px 45px rgba(63, 80, 65, 0.12);
 }
 
 .hero-image img {
@@ -162,14 +163,14 @@ nav a:hover {
   background:
     linear-gradient(
       90deg,
-      rgba(50, 70, 53, 0.50),
-      rgba(50, 70, 53, 0.10),
-      rgba(55, 65, 45, 0.38)
+      rgba(70, 92, 72, 0.52),
+      rgba(70, 92, 72, 0.10),
+      rgba(70, 92, 72, 0.38)
     ),
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.04),
-      rgba(40, 55, 40, 0.30)
+      rgba(60, 80, 62, 0.30)
     );
 }
 
@@ -184,8 +185,8 @@ nav a:hover {
 }
 
 .eyebrow {
-  color: var(--yellow-light);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  color: var(--yellow-soft);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
   font-size: 11px;
   font-weight: bold;
   letter-spacing: 4px;
@@ -195,21 +196,21 @@ nav a:hover {
 
 .hero-center h1 {
   font-family: Georgia, serif;
-  font-size: clamp(44px, 5.5vw, 72px);
+  font-size: clamp(46px, 5.5vw, 74px);
   line-height: 1;
-  margin-bottom: 20px;
   color: white;
+  margin-bottom: 18px;
 }
 
 .hero-center h1 span {
   display: block;
-  color: var(--yellow-light);
+  color: var(--yellow-soft);
 }
 
 .hero-subtitle {
-  color: #f8f7ed;
-  max-width: 560px;
-  margin: 0 auto 25px;
+  max-width: 550px;
+  margin: 0 auto 24px;
+  color: #fbfaf2;
   font-size: 15px;
 }
 
@@ -237,8 +238,8 @@ nav a:hover {
   height: 500px;
   overflow: hidden;
   border-radius: 24px;
-  border: 1px solid #dce5d5;
-  box-shadow: 0 18px 45px rgba(65, 80, 65, 0.10);
+  border: 1px solid #dfe6d9;
+  box-shadow: 0 18px 45px rgba(62, 80, 66, 0.10);
 }
 
 .about-image img {
@@ -252,15 +253,15 @@ nav a:hover {
 .contact h2 {
   font-family: Georgia, serif;
   font-size: clamp(40px, 5vw, 60px);
-  line-height: 1.05;
-  margin-bottom: 25px;
-  color: var(--dark);
+  line-height: 1.04;
+  color: var(--text);
+  margin-bottom: 24px;
 }
 
 .about-text h2 span,
 .booking h2 span,
 .contact h2 span {
-  color: #a89838;
+  color: #a4953f;
 }
 
 .about-text > p:not(.eyebrow) {
@@ -281,25 +282,25 @@ nav a:hover {
 ========================= */
 
 .services {
-  background: #eaf1e3;
+  background: var(--green-soft);
 }
 
 .section-heading {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 55px;
+  margin: 0 auto 52px;
 }
 
 .section-heading h2 {
   font-family: Georgia, serif;
   font-size: clamp(40px, 5vw, 60px);
-  line-height: 1.05;
+  line-height: 1.04;
+  color: var(--text);
   margin-bottom: 15px;
-  color: var(--dark);
 }
 
 .section-heading h2 span {
-  color: #a89838;
+  color: #a4953f;
 }
 
 .section-heading > p:not(.eyebrow) {
@@ -315,45 +316,45 @@ nav a:hover {
 .service-card {
   min-height: 285px;
   padding: 35px 28px;
-  background: #fffef7;
-  border: 1px solid #d6e0d0;
+  background: var(--white);
+  border: 1px solid #d4dfce;
   border-radius: 22px;
   transition: 0.35s;
 }
 
 .service-card:hover {
-  transform: translateY(-8px);
-  border-color: #b9ad52;
-  box-shadow: 0 18px 40px rgba(74, 91, 70, 0.10);
+  transform: translateY(-7px);
+  border-color: #c3b35d;
+  box-shadow: 0 18px 40px rgba(67, 88, 71, 0.10);
 }
 
 .service-card.featured {
-  background: #f7f2cd;
-  border-color: #d7c86b;
+  background: #f8f1c9;
+  border-color: #d5c76d;
 }
 
 .service-number {
-  color: #9b8b2f;
+  color: #9b8b38;
   font-size: 12px;
   letter-spacing: 3px;
-  margin-bottom: 40px;
+  margin-bottom: 38px;
 }
 
 .service-card h3 {
   font-family: Georgia, serif;
   font-size: 29px;
-  margin-bottom: 15px;
   color: var(--green-dark);
+  margin-bottom: 14px;
 }
 
 .service-card p {
   color: var(--muted);
   font-size: 15px;
-  min-height: 85px;
+  min-height: 82px;
 }
 
 .service-card a {
-  color: #8e7e25;
+  color: #8d7d29;
   font-weight: bold;
   font-size: 14px;
 }
@@ -367,19 +368,19 @@ nav a:hover {
   position: relative;
   width: 88%;
   max-width: 1200px;
-  height: 400px;
+  height: 390px;
   margin: 60px auto;
   overflow: hidden;
   border-radius: 24px;
-  border: 1px solid #d7dfcb;
-  box-shadow: 0 18px 45px rgba(65, 80, 65, 0.12);
+  border: 1px solid #d8e0d2;
+  box-shadow: 0 18px 45px rgba(63, 80, 65, 0.10);
 }
 
 .feature-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.85) brightness(0.78);
+  filter: brightness(0.78) saturate(0.85);
 }
 
 .feature-overlay {
@@ -390,19 +391,18 @@ nav a:hover {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  padding: 25px;
-  background: rgba(58, 75, 55, 0.20);
+  background: rgba(65, 82, 66, 0.18);
 }
 
 .feature-overlay h2 {
   font-family: Georgia, serif;
-  font-size: clamp(38px, 5vw, 65px);
+  font-size: clamp(38px, 5vw, 64px);
   line-height: 1;
   color: white;
 }
 
 .feature-overlay h2 span {
-  color: var(--yellow-light);
+  color: var(--yellow-soft);
 }
 
 
@@ -421,14 +421,14 @@ nav a:hover {
 }
 
 .gallery-item {
-  height: 340px;
+  height: 335px;
   overflow: hidden;
   border-radius: 18px;
   border: 1px solid #dfe6d9;
 }
 
 .gallery-large {
-  height: 450px;
+  height: 445px;
 }
 
 .gallery-item img {
@@ -448,18 +448,18 @@ nav a:hover {
 ========================= */
 
 .booking {
-  background: #edf3e8;
+  background: #edf2e7;
 }
 
 .booking-box {
   background: #fffef8;
-  border: 1px solid #d5dfcf;
+  border: 1px solid #d7e0d0;
   border-radius: 26px;
   padding: 60px;
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: 70px;
-  box-shadow: 0 20px 50px rgba(69, 84, 69, 0.10);
+  box-shadow: 0 20px 50px rgba(65, 84, 68, 0.09);
 }
 
 .booking-intro {
@@ -490,9 +490,9 @@ select {
   width: 100%;
   min-height: 50px;
   padding: 14px 16px;
-  background: #fbfcf5;
-  border: 1px solid #d7e0d1;
-  color: var(--dark);
+  background: #fbfcf6;
+  border: 1px solid #d6e0d0;
+  color: var(--text);
   outline: none;
   border-radius: 10px;
   font-size: 14px;
@@ -500,8 +500,8 @@ select {
 
 input:focus,
 select:focus {
-  border-color: #b5a742;
-  box-shadow: 0 0 0 3px rgba(181, 167, 66, 0.12);
+  border-color: #b5a446;
+  box-shadow: 0 0 0 3px rgba(181, 164, 70, 0.11);
 }
 
 input[type="date"] {
@@ -512,7 +512,7 @@ input[type="date"] {
 
 option {
   background: #fffef8;
-  color: var(--dark);
+  color: var(--text);
 }
 
 .full-button {
@@ -537,7 +537,7 @@ option {
 ========================= */
 
 .contact {
-  background: #dfe9d6;
+  background: #dce7d6;
 }
 
 .contact-grid {
@@ -548,7 +548,7 @@ option {
 }
 
 .contact-info {
-  color: #536257;
+  color: #56645a;
   font-size: 17px;
 }
 
@@ -562,7 +562,7 @@ option {
 ========================= */
 
 footer {
-  background: #526b57;
+  background: #536b58;
   color: #edf2e7;
   padding: 28px 0;
 }
@@ -575,11 +575,11 @@ footer {
 }
 
 footer .logo {
-  color: #f7f3e7;
+  color: white;
 }
 
 footer p {
-  color: #d6ded0;
+  color: #d9e1d3;
   font-size: 13px;
 }
 
@@ -599,12 +599,12 @@ footer p {
   }
 
   .hero {
-    padding: 20px 0;
+    padding: 20px 0 30px;
   }
 
   .hero-image {
     width: 94%;
-    height: 370px;
+    height: 360px;
   }
 
   .about-grid,
@@ -641,11 +641,11 @@ footer p {
   }
 
   .hero-image {
-    height: 330px;
+    height: 320px;
   }
 
   .hero-center h1 {
-    font-size: 43px;
+    font-size: 42px;
   }
 
   .hero-subtitle {
@@ -658,7 +658,7 @@ footer p {
 
   .feature-image {
     width: 94%;
-    height: 320px;
+    height: 315px;
     margin: 45px auto;
   }
 
