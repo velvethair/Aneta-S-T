@@ -1,20 +1,52 @@
-const SUPABASE_URL = "https://rrzhahtngfyibmluywnx.supabase.co";
+// ==========================================
+// ANETA S-T - ONLINE BOOKING
+// ==========================================
 
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
+const SUPABASE_URL =
+  "https://rrzhahtngfyibmluywnx.supabase.co";
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
 
-const bookingForm = document.getElementById("bookingForm");
-const nameInput = document.getElementById("name");
-const phoneInput = document.getElementById("phone");
-const serviceInput = document.getElementById("service");
-const dateInput = document.getElementById("date");
-const timeInput = document.getElementById("time");
-const bookingButton = document.getElementById("bookingButton");
-const formMessage = document.getElementById("formMessage");
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+// ==========================================
+// FORM ELEMENTS
+// ==========================================
+
+const bookingForm =
+  document.getElementById("bookingForm");
+
+const nameInput =
+  document.getElementById("name");
+
+const phoneInput =
+  document.getElementById("phone");
+
+const serviceInput =
+  document.getElementById("service");
+
+const dateInput =
+  document.getElementById("date");
+
+const timeInput =
+  document.getElementById("time");
+
+const bookingButton =
+  document.getElementById("bookingButton");
+
+const formMessage =
+  document.getElementById("formMessage");
+
+
+// ==========================================
+// AVAILABLE HOURS
+// ==========================================
 
 const availableTimes = [
   "09:00",
@@ -28,176 +60,458 @@ const availableTimes = [
   "17:00"
 ];
 
+
+// ==========================================
+// TODAY
+// ==========================================
+
 function getTodayString() {
+
   const today = new Date();
 
-  return (
-    today.getFullYear() +
-    "-" +
-    String(today.getMonth() + 1).padStart(2, "0") +
-    "-" +
-    String(today.getDate()).padStart(2, "0")
+  const year =
+    today.getFullYear();
+
+  const month =
+    String(today.getMonth() + 1)
+      .padStart(2, "0");
+
+  const day =
+    String(today.getDate())
+      .padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+dateInput.min =
+  getTodayString();
+
+
+// ==========================================
+// MESSAGE
+// ==========================================
+
+function showMessage(
+  message,
+  success = false
+) {
+
+  formMessage.textContent =
+    message;
+
+  formMessage.style.color =
+    success
+      ? "#536b58"
+      : "#a4953f";
+}
+
+
+// ==========================================
+// RESET TIME
+// ==========================================
+
+function resetTimeSelect(
+  message = "Прво избери датум"
+) {
+
+  timeInput.innerHTML = "";
+
+  const option =
+    document.createElement("option");
+
+  option.value = "";
+
+  option.textContent =
+    message;
+
+  timeInput.appendChild(
+    option
   );
 }
 
-dateInput.min = getTodayString();
 
-function showMessage(message, success = false) {
-  formMessage.textContent = message;
-  formMessage.style.color = success ? "#3d8b62" : "#b86f87";
-}
-
-function resetTimeSelect(message = "Прво избери датум") {
-  timeInput.innerHTML = "";
-
-  const option = document.createElement("option");
-  option.value = "";
-  option.textContent = message;
-
-  timeInput.appendChild(option);
-}
+// ==========================================
+// LOAD AVAILABLE TIMES
+// ==========================================
 
 async function loadAvailableTimes() {
-  const selectedDate = dateInput.value;
+
+  const selectedDate =
+    dateInput.value;
 
   if (!selectedDate) {
+
     resetTimeSelect();
+
     return;
   }
 
-  resetTimeSelect("Се вчитуваат термините...");
+  resetTimeSelect(
+    "Се вчитуваат термините..."
+  );
+
   showMessage("");
 
+
   try {
-    const { data, error } = await supabaseClient
-      .from("bookings")
-      .select("booking_time")
-      .eq("booking_date", selectedDate);
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("bookings")
+        .select("booking_time")
+        .eq(
+          "booking_date",
+          selectedDate
+        );
+
 
     if (error) {
-      console.error("SUPABASE ERROR:", error);
-      console.error("MESSAGE:", error.message);
-      console.error("CODE:", error.code);
 
-      resetTimeSelect("Грешка при вчитување");
-      showMessage("Грешка: " + error.message);
+      console.error(
+        "SUPABASE ERROR:",
+        error
+      );
+
+      console.error(
+        "MESSAGE:",
+        error.message
+      );
+
+      console.error(
+        "CODE:",
+        error.code
+      );
+
+      resetTimeSelect(
+        "Грешка при вчитување"
+      );
+
+      showMessage(
+        "Грешка: " +
+        (
+          error.message ||
+          "Непозната грешка"
+        )
+      );
 
       return;
     }
 
-    const bookedTimes = (data || []).map(function (booking) {
-      return String(booking.booking_time).slice(0, 5);
-    });
 
-    const freeTimes = availableTimes.filter(function (time) {
-      return !bookedTimes.includes(time);
-    });
+    const bookedTimes =
+      (data || []).map(
+        booking =>
+          String(
+            booking.booking_time
+          ).slice(0, 5)
+      );
+
+
+    const freeTimes =
+      availableTimes.filter(
+        time =>
+          !bookedTimes.includes(
+            time
+          )
+      );
+
 
     timeInput.innerHTML = "";
 
-    if (freeTimes.length === 0) {
-      const option = document.createElement("option");
-      option.value = "";
-      option.textContent = "Нема слободни термини за овој датум";
 
-      timeInput.appendChild(option);
+    if (
+      freeTimes.length === 0
+    ) {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value = "";
+
+      option.textContent =
+        "Нема слободни термини за овој датум";
+
+      timeInput.appendChild(
+        option
+      );
+
       return;
     }
 
-    const firstOption = document.createElement("option");
+
+    const firstOption =
+      document.createElement(
+        "option"
+      );
+
     firstOption.value = "";
-    firstOption.textContent = "Избери слободен термин";
 
-    timeInput.appendChild(firstOption);
+    firstOption.textContent =
+      "Избери слободен термин";
 
-    freeTimes.forEach(function (time) {
-      const option = document.createElement("option");
+    timeInput.appendChild(
+      firstOption
+    );
 
-      option.value = time;
-      option.textContent = time;
 
-      timeInput.appendChild(option);
-    });
+    freeTimes.forEach(
+      time => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          time;
+
+        option.textContent =
+          time;
+
+        timeInput.appendChild(
+          option
+        );
+
+      }
+    );
 
   } catch (error) {
-    console.error("GENERAL ERROR:", error);
 
-    resetTimeSelect("Грешка при поврзување");
-    showMessage("Се појави проблем со поврзувањето.");
+    console.error(
+      "GENERAL ERROR:",
+      error
+    );
+
+    resetTimeSelect(
+      "Грешка при поврзување"
+    );
+
+    showMessage(
+      "Се појави проблем со поврзувањето."
+    );
   }
 }
 
-dateInput.addEventListener("change", loadAvailableTimes);
 
-bookingForm.addEventListener("submit", async function (event) {
-  event.preventDefault();
+// ==========================================
+// DATE CHANGE
+// ==========================================
 
-  const name = nameInput.value.trim();
-  const phone = phoneInput.value.trim();
-  const service = serviceInput.value;
-  const bookingDate = dateInput.value;
-  const bookingTime = timeInput.value;
+dateInput.addEventListener(
+  "change",
+  loadAvailableTimes
+);
 
-  if (!name || !phone || !service || !bookingDate || !bookingTime) {
-    showMessage("Ве молиме пополнете ги сите полиња.");
-    return;
-  }
 
-  bookingButton.disabled = true;
-  bookingButton.textContent = "Се резервира...";
+// ==========================================
+// SERVICE BUTTONS
+// ==========================================
 
-  try {
-    const { data, error } = await supabaseClient
-      .from("bookings")
-      .insert([
-        {
-          name: name,
-          phone: phone,
-          service: service,
-          booking_date: bookingDate,
-          booking_time: bookingTime
+document
+  .querySelectorAll(
+    ".service-booking"
+  )
+  .forEach(
+    link => {
+
+      link.addEventListener(
+        "click",
+        function () {
+
+          const selectedService =
+            this.dataset.service;
+
+          serviceInput.value =
+            selectedService;
+
         }
-      ])
-      .select();
+      );
 
-    if (error) {
-      console.error("BOOKING ERROR:", error);
+    }
+  );
 
-      if (error.code === "23505") {
-        showMessage(
-          "Овој термин веќе е резервиран. Изберете друг термин."
-        );
 
-        await loadAvailableTimes();
-        return;
-      }
+// ==========================================
+// BOOKING
+// ==========================================
 
-      showMessage("Резервацијата не успеа: " + error.message);
+bookingForm.addEventListener(
+  "submit",
+  async function (event) {
+
+    event.preventDefault();
+
+
+    const name =
+      nameInput.value.trim();
+
+    const phone =
+      phoneInput.value.trim();
+
+    const service =
+      serviceInput.value;
+
+    const bookingDate =
+      dateInput.value;
+
+    const bookingTime =
+      timeInput.value;
+
+
+    if (
+      !name ||
+      !phone ||
+      !service ||
+      !bookingDate ||
+      !bookingTime
+    ) {
+
+      showMessage(
+        "Ве молиме пополнете ги сите полиња."
+      );
+
       return;
     }
 
-    console.log("BOOKING CREATED:", data);
 
-    showMessage(
-      "✅ Успешно! Терминот е резервиран.",
-      true
-    );
+    bookingButton.disabled =
+      true;
 
-    nameInput.value = "";
-    phoneInput.value = "";
-    serviceInput.value = "";
-    dateInput.value = "";
+    bookingButton.textContent =
+      "Се резервира...";
 
-    resetTimeSelect();
 
-  } catch (error) {
-    console.error("FINAL ERROR:", error);
-    showMessage("Се појави грешка. Обидете се повторно.");
+    showMessage("");
 
-  } finally {
-    bookingButton.disabled = false;
-    bookingButton.textContent = "Закажи термин";
+
+    try {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("bookings")
+          .insert([
+            {
+              name:
+                name,
+
+              phone:
+                phone,
+
+              service:
+                service,
+
+              booking_date:
+                bookingDate,
+
+              booking_time:
+                bookingTime
+            }
+          ])
+          .select();
+
+
+      if (error) {
+
+        console.error(
+          "BOOKING ERROR:",
+          error
+        );
+
+
+        if (
+          error.code ===
+          "23505"
+        ) {
+
+          showMessage(
+            "Овој термин веќе е резервиран. Изберете друг термин."
+          );
+
+          await loadAvailableTimes();
+
+          return;
+        }
+
+
+        showMessage(
+          "Резервацијата не успеа: " +
+          (
+            error.message ||
+            "Непозната грешка"
+          )
+        );
+
+        return;
+      }
+
+
+      console.log(
+        "BOOKING CREATED:",
+        data
+      );
+
+
+      showMessage(
+        "✅ Успешно! Терминот е резервиран.",
+        true
+      );
+
+
+      nameInput.value =
+        "";
+
+      phoneInput.value =
+        "";
+
+      serviceInput.value =
+        "";
+
+      dateInput.value =
+        "";
+
+
+      resetTimeSelect(
+        "Прво избери датум"
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "FINAL ERROR:",
+        error
+      );
+
+      showMessage(
+        "❌ Се појави грешка. Обидете се повторно."
+      );
+
+
+    } finally {
+
+      bookingButton.disabled =
+        false;
+
+      bookingButton.textContent =
+        "Закажи термин";
+    }
+
   }
-});
+);
 
-resetTimeSelect();
+
+// ==========================================
+// INITIAL STATE
+// ==========================================
+
+resetTimeSelect(
+  "Прво избери датум"
+);
