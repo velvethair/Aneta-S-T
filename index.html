@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Aneta S-T | Luxury Nail Studio</title>
+  <title>Aneta S-T | Nail Studio</title>
 
   <meta
     name="description"
-    content="Aneta S-T – luxury nail studio во Неготино. Маникир, педикир и надградба. Закажи термин онлајн."
+    content="Aneta S-T Nail Studio – маникир, педикир и надградба. Закажи термин онлајн."
   >
 
   <link rel="stylesheet" href="style.css">
@@ -48,7 +48,7 @@
 
       <img
         src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1800&q=90"
-        alt="Luxury manicure"
+        alt="Aneta S-T manicure"
       >
 
       <div class="hero-dark"></div>
@@ -63,11 +63,6 @@
           Elegance
           <span>in every detail.</span>
         </h1>
-
-        <p class="hero-subtitle">
-          Luxury manicure, педикир и надградба
-          во срцето на Неготино.
-        </p>
 
         <a href="#booking" class="button">
           Закажи термин
@@ -89,11 +84,10 @@
 
         <img
           src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=1200&q=90"
-          alt="Elegant nails"
+          alt="Elegant manicure"
         >
 
       </div>
-
 
       <div class="about-text">
 
@@ -142,7 +136,7 @@
 
         <h2>
           Избери го твојот
-          <span>luxury moment.</span>
+          <span>третман.</span>
         </h2>
 
         <p>
@@ -155,6 +149,7 @@
 
       <div class="services-grid">
 
+        <!-- MANIKIR -->
         <div class="service-card">
 
           <div class="service-number">
@@ -170,13 +165,18 @@
             на природните нокти.
           </p>
 
-          <a href="#booking">
+          <a
+            href="#booking"
+            class="service-booking"
+            data-service="Маникир"
+          >
             Закажи →
           </a>
 
         </div>
 
 
+        <!-- PEDIKIR -->
         <div class="service-card featured">
 
           <div class="service-number">
@@ -192,13 +192,18 @@
             мазни и негувани стапала.
           </p>
 
-          <a href="#booking">
+          <a
+            href="#booking"
+            class="service-booking"
+            data-service="Педикир"
+          >
             Закажи →
           </a>
 
         </div>
 
 
+        <!-- NADGRADBA -->
         <div class="service-card">
 
           <div class="service-number">
@@ -214,7 +219,11 @@
             според твојот стил.
           </p>
 
-          <a href="#booking">
+          <a
+            href="#booking"
+            class="service-booking"
+            data-service="Надградба"
+          >
             Закажи →
           </a>
 
@@ -242,9 +251,8 @@
       </p>
 
       <h2>
-        Bold.
-        <span>Elegant.</span>
-        Unforgettable.
+        Elegant.
+        <span>Beautiful.</span>
       </h2>
 
     </div>
@@ -277,7 +285,7 @@
 
           <img
             src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1000&q=90"
-            alt="Black manicure"
+            alt="Manicure design"
           >
 
         </div>
@@ -321,8 +329,8 @@
         </p>
 
         <h2>
-          Reserve your
-          <span>moment.</span>
+          Закажи го
+          <span>твојот термин.</span>
         </h2>
 
         <p>
@@ -336,6 +344,7 @@
 
       <form id="bookingForm">
 
+        <!-- NAME -->
         <div class="form-group">
 
           <label for="name">
@@ -347,12 +356,14 @@
             id="name"
             name="name"
             placeholder="Твоето име"
+            autocomplete="name"
             required
           >
 
         </div>
 
 
+        <!-- PHONE -->
         <div class="form-group">
 
           <label for="phone">
@@ -363,13 +374,15 @@
             type="tel"
             id="phone"
             name="phone"
-            placeholder="07X XXX XXX"
+            placeholder="078 XXX XXX"
+            autocomplete="tel"
             required
           >
 
         </div>
 
 
+        <!-- SERVICE -->
         <div class="form-group">
 
           <label for="service">
@@ -403,6 +416,7 @@
         </div>
 
 
+        <!-- DATE -->
         <div class="form-group">
 
           <label for="date">
@@ -419,6 +433,7 @@
         </div>
 
 
+        <!-- TIME -->
         <div class="form-group">
 
           <label for="time">
@@ -440,6 +455,7 @@
         </div>
 
 
+        <!-- BUTTON -->
         <button
           type="submit"
           class="button full-button"
@@ -448,6 +464,8 @@
           Закажи термин
         </button>
 
+
+        <!-- MESSAGE -->
         <p id="formMessage"></p>
 
       </form>
@@ -470,7 +488,7 @@
 
         <h2>
           Step into
-          <span>luxury.</span>
+          <span>beauty.</span>
         </h2>
 
       </div>
@@ -518,7 +536,7 @@
   <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- BOOKING SYSTEM -->
+  <!-- BOOKING -->
   <script src="booking.js"></script>
 
 </body>
