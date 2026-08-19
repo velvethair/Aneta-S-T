@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="mk">
+
 <head>
 
   <meta charset="UTF-8">
@@ -88,36 +89,48 @@
 
     .card h2 {
       font-family: Georgia, serif;
-      margin-bottom: 20px;
       color: #536b58;
+      margin-bottom: 20px;
     }
 
-    /* BLOCK DATE */
+    /* BLOCK OPTIONS */
 
-    .block-form {
-      display: flex;
-      gap: 12px;
-      align-items: end;
-      flex-wrap: wrap;
+    .block-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .block-box {
+      background: #faf9f1;
+      border: 1px solid #dce4d7;
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .block-box h3 {
+      color: #536b58;
+      margin-bottom: 15px;
+      font-family: Georgia, serif;
     }
 
     .field {
-      flex: 1;
-      min-width: 230px;
+      margin-bottom: 14px;
     }
 
-    .field label {
+    label {
       display: block;
-      margin-bottom: 8px;
-      color: #536b58;
+      margin-bottom: 7px;
       font-size: 13px;
       font-weight: bold;
+      color: #536b58;
     }
 
-    .field input {
+    input,
+    select {
       width: 100%;
       min-height: 48px;
-      padding: 12px 14px;
+      padding: 11px 13px;
       border: 1px solid #d6e0d0;
       border-radius: 10px;
       background: #fbfcf6;
@@ -125,14 +138,15 @@
       outline: none;
     }
 
-    .field input:focus {
+    input:focus,
+    select:focus {
       border-color: #b5a446;
       box-shadow: 0 0 0 3px rgba(181, 164, 70, 0.11);
     }
 
     .primary {
-      min-height: 48px;
-      padding: 0 22px;
+      min-height: 46px;
+      padding: 0 20px;
       border: none;
       border-radius: 25px;
       background: #536b58;
@@ -157,7 +171,7 @@
       font-weight: bold;
     }
 
-    /* BLOCKED DATES */
+    /* BLOCKED LISTS */
 
     .status {
       margin-bottom: 15px;
@@ -189,10 +203,6 @@
       border-radius: 15px;
       cursor: pointer;
       font-size: 12px;
-    }
-
-    .unblock:hover {
-      background: #bd7770;
     }
 
     /* BOOKINGS */
@@ -236,23 +246,13 @@
       font-weight: bold;
     }
 
-    .delete-button:hover {
-      background: #bd7770;
-    }
-
     .empty {
       text-align: center;
       color: #7a877d;
       padding: 35px;
     }
 
-    /* LOADING */
-
-    .loading {
-      color: #708075;
-    }
-
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
 
       body {
         padding: 15px;
@@ -263,13 +263,8 @@
         align-items: flex-start;
       }
 
-      .block-form {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .primary {
-        width: 100%;
+      .block-grid {
+        grid-template-columns: 1fr;
       }
 
     }
@@ -280,833 +275,1156 @@
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- HEADER -->
+  <!-- HEADER -->
 
-    <div class="header">
+  <div class="header">
 
-      <div>
+    <div>
 
-        <div class="logo">
-          ANETA <span>S-T</span>
-        </div>
-
-        <div class="subtitle">
-          Admin панел • Резервации
-        </div>
-
+      <div class="logo">
+        ANETA <span>S-T</span>
       </div>
 
-      <button
-        class="logout"
-        id="logoutButton"
-      >
-        Одјави се
-      </button>
+      <div class="subtitle">
+        Admin панел • Резервации
+      </div>
 
     </div>
 
+    <button
+      class="logout"
+      id="logoutButton"
+    >
+      Одјави се
+    </button>
 
-    <!-- BLOCK DATE -->
+  </div>
 
-    <div class="card">
 
-      <h2>
-        Блокирај датум
-      </h2>
+  <!-- BLOCKING -->
 
-      <form
-        id="blockDateForm"
-        class="block-form"
-      >
+  <div class="card">
 
-        <div class="field">
+    <h2>
+      Блокирање
+    </h2>
 
-          <label for="blockedDate">
-            Датум на кој не се работи
-          </label>
+    <div class="block-grid">
 
-          <input
-            type="date"
-            id="blockedDate"
-            required
+      <!-- FULL DAY -->
+
+      <div class="block-box">
+
+        <h3>
+          Блокирај цел ден
+        </h3>
+
+        <form id="blockDateForm">
+
+          <div class="field">
+
+            <label for="blockedDate">
+              Датум
+            </label>
+
+            <input
+              type="date"
+              id="blockedDate"
+              required
+            >
+
+          </div>
+
+          <button
+            type="submit"
+            class="primary"
+            id="blockDateButton"
           >
+            Блокирај ден
+          </button>
 
-        </div>
+        </form>
 
-        <button
-          type="submit"
-          class="primary"
-          id="blockButton"
-        >
-          Блокирај датум
-        </button>
+      </div>
 
-      </form>
 
-      <div
-        id="blockMessage"
-        class="message"
-      ></div>
+      <!-- SINGLE TIME -->
+
+      <div class="block-box">
+
+        <h3>
+          Блокирај само термин
+        </h3>
+
+        <form id="blockTimeForm">
+
+          <div class="field">
+
+            <label for="blockedTimeDate">
+              Датум
+            </label>
+
+            <input
+              type="date"
+              id="blockedTimeDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="blockedTime">
+              Време
+            </label>
+
+            <select
+              id="blockedTime"
+              required
+            >
+
+              <option value="">
+                Избери време
+              </option>
+
+              <option value="09:00">
+                09:00
+              </option>
+
+              <option value="10:00">
+                10:00
+              </option>
+
+              <option value="11:00">
+                11:00
+              </option>
+
+              <option value="12:00">
+                12:00
+              </option>
+
+              <option value="13:00">
+                13:00
+              </option>
+
+              <option value="14:00">
+                14:00
+              </option>
+
+              <option value="15:00">
+                15:00
+              </option>
+
+              <option value="16:00">
+                16:00
+              </option>
+
+              <option value="17:00">
+                17:00
+              </option>
+
+              <option value="18:00">
+                18:00
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="primary"
+            id="blockTimeButton"
+          >
+            Блокирај термин
+          </button>
+
+        </form>
+
+      </div>
 
     </div>
 
 
-    <!-- BLOCKED DATES -->
+    <div
+      id="blockMessage"
+      class="message"
+    ></div>
 
-    <div class="card">
+  </div>
 
-      <h2>
-        Блокирани датуми
-      </h2>
 
-      <div
-        id="blockedStatus"
-        class="status"
-      >
-        Се вчитува...
-      </div>
+  <!-- BLOCKED DAYS -->
 
-      <div
-        id="blockedList"
-        class="blocked-list"
-      ></div>
+  <div class="card">
 
+    <h2>
+      Блокирани денови
+    </h2>
+
+    <div
+      id="blockedDatesStatus"
+      class="status"
+    >
+      Се вчитува...
     </div>
 
+    <div
+      id="blockedDatesList"
+      class="blocked-list"
+    ></div>
 
-    <!-- BOOKINGS -->
+  </div>
 
-    <div class="card">
 
-      <h2>
-        Закажани термини
-      </h2>
+  <!-- BLOCKED TIMES -->
 
-      <div
-        id="status"
-        class="status"
-      >
-        Се вчитуваат резервациите...
-      </div>
+  <div class="card">
 
-      <div class="table-wrapper">
+    <h2>
+      Блокирани термини
+    </h2>
 
-        <table>
+    <div
+      id="blockedTimesStatus"
+      class="status"
+    >
+      Се вчитува...
+    </div>
 
-          <thead>
+    <div
+      id="blockedTimesList"
+      class="blocked-list"
+    ></div>
 
-            <tr>
+  </div>
 
-              <th>
-                Датум
-              </th>
 
-              <th>
-                Време
-              </th>
+  <!-- BOOKINGS -->
 
-              <th>
-                Клиент
-              </th>
+  <div class="card">
 
-              <th>
-                Телефон
-              </th>
+    <h2>
+      Закажани термини
+    </h2>
 
-              <th>
-                Услуга
-              </th>
+    <div
+      id="status"
+      class="status"
+    >
+      Се вчитуваат резервациите...
+    </div>
 
-              <th>
-                Акција
-              </th>
+    <div class="table-wrapper">
 
-            </tr>
+      <table>
 
-          </thead>
+        <thead>
 
-          <tbody id="bookingsBody"></tbody>
+          <tr>
+            <th>Датум</th>
+            <th>Време</th>
+            <th>Клиент</th>
+            <th>Телефон</th>
+            <th>Услуга</th>
+            <th>Акција</th>
+          </tr>
 
-        </table>
+        </thead>
 
-      </div>
+        <tbody
+          id="bookingsBody"
+        ></tbody>
+
+      </table>
 
     </div>
 
   </div>
 
+</div>
+
 
-  <!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 
-  <script>
+const SUPABASE_URL =
+  "https://rrzhahtngfyibmluywnx.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
 
-    const SUPABASE_URL =
-      "https://rrzhahtngfyibmluywnx.supabase.co";
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
 
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
+/* ELEMENTS */
+
+const blockedDateForm =
+  document.getElementById(
+    "blockDateForm"
+  );
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
+const blockedDateInput =
+  document.getElementById(
+    "blockedDate"
+  );
 
+const blockedTimeForm =
+  document.getElementById(
+    "blockTimeForm"
+  );
 
-    /* ELEMENTS */
+const blockedTimeDateInput =
+  document.getElementById(
+    "blockedTimeDate"
+  );
 
-    const bookingsBody =
-      document.getElementById(
-        "bookingsBody"
-      );
-
-    const statusElement =
-      document.getElementById(
-        "status"
-      );
+const blockedTimeInput =
+  document.getElementById(
+    "blockedTime"
+  );
 
-    const blockedStatus =
-      document.getElementById(
-        "blockedStatus"
-      );
+const blockMessage =
+  document.getElementById(
+    "blockMessage"
+  );
 
-    const blockedList =
-      document.getElementById(
-        "blockedList"
-      );
+const blockDateButton =
+  document.getElementById(
+    "blockDateButton"
+  );
 
-    const blockDateForm =
-      document.getElementById(
-        "blockDateForm"
-      );
-
-    const blockedDateInput =
-      document.getElementById(
-        "blockedDate"
-      );
-
-    const blockButton =
-      document.getElementById(
-        "blockButton"
-      );
-
-    const blockMessage =
-      document.getElementById(
-        "blockMessage"
-      );
-
-    const logoutButton =
-      document.getElementById(
-        "logoutButton"
-      );
-
-
-    /* ==========================
-       CHECK LOGIN
-    ========================== */
-
-    async function checkUser() {
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth
-          .getUser();
-
-
-      if (
-        error ||
-        !data.user
-      ) {
-
-        window.location.href =
-          "login.html";
-
-        return null;
-      }
-
-
-      return data.user;
-    }
-
-
-    /* ==========================
-       HTML SAFETY
-    ========================== */
-
-    function escapeHtml(value) {
-
-      return String(
-        value ?? ""
-      )
-        .replaceAll(
-          "&",
-          "&amp;"
-        )
-        .replaceAll(
-          "<",
-          "&lt;"
-        )
-        .replaceAll(
-          ">",
-          "&gt;"
-        )
-        .replaceAll(
-          '"',
-          "&quot;"
-        )
-        .replaceAll(
-          "'",
-          "&#039;"
-        );
-
-    }
-
-
-    /* ==========================
-       MESSAGE
-    ========================== */
-
-    function showBlockMessage(
-      message,
-      success = false
-    ) {
-
-      blockMessage.textContent =
-        message;
-
-      blockMessage.style.color =
-        success
-          ? "#536b58"
-          : "#bd7770";
-
-    }
-
-
-    /* ==========================
-       LOAD BLOCKED DATES
-    ========================== */
-
-    async function loadBlockedDates() {
-
-      blockedStatus.textContent =
-        "Се вчитуваат...";
-
-      blockedList.innerHTML =
-        "";
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("blocked_dates")
-          .select(
-            "blocked_date"
-          )
-          .order(
-            "blocked_date",
-            {
-              ascending: true
-            }
-          );
-
-
-      if (error) {
-
-        console.error(
-          "BLOCKED DATES ERROR:",
-          error
-        );
-
-        blockedStatus.textContent =
-          "Грешка при вчитување.";
-
-        return;
-      }
-
-
-      if (
-        !data ||
-        data.length === 0
-      ) {
-
-        blockedStatus.textContent =
-          "Нема блокирани датуми.";
-
-        return;
-      }
-
-
-      blockedStatus.textContent =
-        `Вкупно блокирани датуми: ${data.length}`;
-
-
-      data.forEach(
-        item => {
-
-          const wrapper =
-            document.createElement(
-              "div"
-            );
-
-          wrapper.className =
-            "blocked-item";
-
-
-          const dateText =
-            document.createElement(
-              "span"
-            );
-
-          dateText.textContent =
-            item.blocked_date;
-
-
-          const unblockButton =
-            document.createElement(
-              "button"
-            );
-
-          unblockButton.className =
-            "unblock";
-
-          unblockButton.textContent =
-            "Одблокирај";
-
-          unblockButton.dataset.date =
-            item.blocked_date;
-
-
-          unblockButton.addEventListener(
-            "click",
-            async function() {
-
-              const date =
-                this.dataset.date;
-
-
-              const confirmed =
-                confirm(
-                  `Дали сакаш да го одблокираш ${date}?`
-                );
-
-
-              if (!confirmed) {
-                return;
-              }
-
-
-              const {
-                error
-              } =
-                await supabaseClient
-                  .from(
-                    "blocked_dates"
-                  )
-                  .delete()
-                  .eq(
-                    "blocked_date",
-                    date
-                  );
-
-
-              if (error) {
-
-                alert(
-                  "Грешка: " +
-                  error.message
-                );
-
-                return;
-              }
-
-
-              showBlockMessage(
-                "Датумот е одблокиран.",
-                true
-              );
-
-
-              await loadBlockedDates();
-
-            }
-          );
-
-
-          wrapper.appendChild(
-            dateText
-          );
-
-          wrapper.appendChild(
-            unblockButton
-          );
-
-          blockedList.appendChild(
-            wrapper
-          );
-
+const blockTimeButton =
+  document.getElementById(
+    "blockTimeButton"
+  );
+
+const blockedDatesStatus =
+  document.getElementById(
+    "blockedDatesStatus"
+  );
+
+const blockedDatesList =
+  document.getElementById(
+    "blockedDatesList"
+  );
+
+const blockedTimesStatus =
+  document.getElementById(
+    "blockedTimesStatus"
+  );
+
+const blockedTimesList =
+  document.getElementById(
+    "blockedTimesList"
+  );
+
+const bookingsBody =
+  document.getElementById(
+    "bookingsBody"
+  );
+
+const statusElement =
+  document.getElementById(
+    "status"
+  );
+
+const logoutButton =
+  document.getElementById(
+    "logoutButton"
+  );
+
+
+/* ==========================
+   LOGIN CHECK
+========================== */
+
+async function checkUser() {
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth
+      .getUser();
+
+  if (
+    error ||
+    !data.user
+  ) {
+
+    window.location.href =
+      "login.html";
+
+    return null;
+  }
+
+  return data.user;
+}
+
+
+/* ==========================
+   MESSAGE
+========================== */
+
+function showBlockMessage(
+  message,
+  success = false
+) {
+
+  blockMessage.textContent =
+    message;
+
+  blockMessage.style.color =
+    success
+      ? "#536b58"
+      : "#bd7770";
+}
+
+
+/* ==========================
+   LOAD BLOCKED DATES
+========================== */
+
+async function loadBlockedDates() {
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("blocked_dates")
+      .select("blocked_date")
+      .order(
+        "blocked_date",
+        {
+          ascending: true
         }
       );
 
-    }
+  if (error) {
+
+    console.error(
+      error
+    );
+
+    blockedDatesStatus.textContent =
+      "Грешка при вчитување.";
+
+    return;
+  }
+
+  blockedDatesList.innerHTML =
+    "";
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    blockedDatesStatus.textContent =
+      "Нема блокирани денови.";
+
+    return;
+  }
+
+  blockedDatesStatus.textContent =
+    `Вкупно: ${data.length}`;
 
 
-    /* ==========================
-       BLOCK DATE
-    ========================== */
+  data.forEach(
+    item => {
 
-    blockDateForm.addEventListener(
-      "submit",
-      async function(event) {
+      const wrapper =
+        document.createElement(
+          "div"
+        );
 
-        event.preventDefault();
-
-
-        const date =
-          blockedDateInput.value;
+      wrapper.className =
+        "blocked-item";
 
 
-        if (!date) {
+      const text =
+        document.createElement(
+          "span"
+        );
 
-          showBlockMessage(
-            "Избери датум."
-          );
-
-          return;
-        }
-
-
-        blockButton.disabled =
-          true;
-
-        blockButton.textContent =
-          "Се зачувува...";
+      text.textContent =
+        item.blocked_date;
 
 
-        try {
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.className =
+        "unblock";
+
+      button.textContent =
+        "Одблокирај";
+
+
+      button.addEventListener(
+        "click",
+        async function() {
+
+          const confirmed =
+            confirm(
+              `Да се одблокира ${item.blocked_date}?`
+            );
+
+          if (!confirmed) {
+            return;
+          }
 
           const {
             error
           } =
             await supabaseClient
-              .from(
-                "blocked_dates"
-              )
-              .insert({
-                blocked_date: date
-              });
+              .from("blocked_dates")
+              .delete()
+              .eq(
+                "blocked_date",
+                item.blocked_date
+              );
 
 
           if (error) {
 
-            if (
-              error.code ===
-              "23505"
-            ) {
-
-              showBlockMessage(
-                "Овој датум веќе е блокиран."
-              );
-
-            } else {
-
-              showBlockMessage(
-                "Грешка: " +
-                error.message
-              );
-
-            }
+            alert(
+              error.message
+            );
 
             return;
           }
 
 
-          blockedDateInput.value =
-            "";
-
-
-          showBlockMessage(
-            "✅ Датумот е успешно блокиран.",
-            true
-          );
-
-
           await loadBlockedDates();
-
-
-        } catch (error) {
-
-          console.error(
-            error
-          );
-
-          showBlockMessage(
-            "Се појави грешка."
-          );
-
-        } finally {
-
-          blockButton.disabled =
-            false;
-
-          blockButton.textContent =
-            "Блокирај датум";
-
-        }
-
-      }
-    );
-
-
-    /* ==========================
-       LOAD BOOKINGS
-    ========================== */
-
-    async function loadBookings() {
-
-      const user =
-        await checkUser();
-
-
-      if (!user) {
-        return;
-      }
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("bookings")
-          .select(
-            "id, name, phone, service, booking_date, booking_time"
-          )
-          .order(
-            "booking_date",
-            {
-              ascending: true
-            }
-          )
-          .order(
-            "booking_time",
-            {
-              ascending: true
-            }
-          );
-
-
-      if (error) {
-
-        console.error(
-          "BOOKINGS ERROR:",
-          error
-        );
-
-        statusElement.textContent =
-          "Грешка при вчитување на резервациите.";
-
-        return;
-      }
-
-
-      bookingsBody.innerHTML =
-        "";
-
-
-      if (
-        !data ||
-        data.length === 0
-      ) {
-
-        statusElement.textContent =
-          "Нема закажани термини.";
-
-        bookingsBody.innerHTML = `
-          <tr>
-            <td
-              colspan="6"
-              class="empty"
-            >
-              Моментално нема резервации.
-            </td>
-          </tr>
-        `;
-
-        return;
-      }
-
-
-      statusElement.textContent =
-        `Вкупно резервации: ${data.length}`;
-
-
-      data.forEach(
-        booking => {
-
-          const row =
-            document.createElement(
-              "tr"
-            );
-
-
-          const date =
-            String(
-              booking.booking_date
-            );
-
-
-          const time =
-            String(
-              booking.booking_time
-            ).slice(0, 5);
-
-
-          row.innerHTML = `
-
-            <td>
-              ${escapeHtml(date)}
-            </td>
-
-            <td>
-              ${escapeHtml(time)}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                booking.name
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                booking.phone
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                booking.service
-              )}
-            </td>
-
-            <td>
-
-              <button
-                class="delete-button"
-                data-id="${booking.id}"
-              >
-                Откажи
-              </button>
-
-            </td>
-
-          `;
-
-
-          bookingsBody.appendChild(
-            row
-          );
 
         }
       );
 
 
-      document
-        .querySelectorAll(
-          ".delete-button"
-        )
-        .forEach(
-          button => {
+      wrapper.appendChild(text);
+      wrapper.appendChild(button);
 
-            button.addEventListener(
-              "click",
-              async function() {
+      blockedDatesList.appendChild(
+        wrapper
+      );
 
-                const id =
-                  this.dataset.id;
+    }
+  );
+}
 
 
-                const confirmed =
-                  confirm(
-                    "Дали сигурно сакаш да ја откажеш оваа резервација?"
-                  );
+/* ==========================
+   BLOCK FULL DAY
+========================== */
+
+blockedDateForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    const date =
+      blockedDateInput.value;
 
 
-                if (!confirmed) {
-                  return;
-                }
+    if (!date) {
+      return;
+    }
 
 
-                const {
-                  error
-                } =
-                  await supabaseClient
-                    .from(
-                      "bookings"
-                    )
-                    .delete()
-                    .eq(
-                      "id",
-                      id
-                    );
+    blockDateButton.disabled =
+      true;
+
+    blockDateButton.textContent =
+      "Се зачувува...";
 
 
-                if (error) {
+    try {
 
-                  alert(
-                    "Грешка: " +
-                    error.message
-                  );
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("blocked_dates")
+          .insert({
+            blocked_date:
+              date
+          });
 
-                  return;
-                }
+
+      if (error) {
+
+        if (
+          error.code ===
+          "23505"
+        ) {
+
+          showBlockMessage(
+            "Овој ден веќе е блокиран."
+          );
+
+        } else {
+
+          showBlockMessage(
+            "Грешка: " +
+            error.message
+          );
+
+        }
+
+        return;
+      }
 
 
-                await loadBookings();
+      blockedDateInput.value =
+        "";
 
-              }
+      showBlockMessage(
+        "✅ Целиот ден е блокиран.",
+        true
+      );
+
+
+      await loadBlockedDates();
+
+    } finally {
+
+      blockDateButton.disabled =
+        false;
+
+      blockDateButton.textContent =
+        "Блокирај ден";
+
+    }
+
+  }
+);
+
+
+/* ==========================
+   LOAD BLOCKED TIMES
+========================== */
+
+async function loadBlockedTimes() {
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("blocked_times")
+      .select(
+        "blocked_date, blocked_time"
+      )
+      .order(
+        "blocked_date",
+        {
+          ascending: true
+        }
+      )
+      .order(
+        "blocked_time",
+        {
+          ascending: true
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      error
+    );
+
+    blockedTimesStatus.textContent =
+      "Грешка при вчитување.";
+
+    return;
+  }
+
+
+  blockedTimesList.innerHTML =
+    "";
+
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    blockedTimesStatus.textContent =
+      "Нема блокирани термини.";
+
+    return;
+  }
+
+
+  blockedTimesStatus.textContent =
+    `Вкупно: ${data.length}`;
+
+
+  data.forEach(
+    item => {
+
+      const wrapper =
+        document.createElement(
+          "div"
+        );
+
+      wrapper.className =
+        "blocked-item";
+
+
+      const time =
+        String(
+          item.blocked_time
+        ).slice(0, 5);
+
+
+      const text =
+        document.createElement(
+          "span"
+        );
+
+      text.textContent =
+        `${item.blocked_date} • ${time}`;
+
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.className =
+        "unblock";
+
+      button.textContent =
+        "Одблокирај";
+
+
+      button.addEventListener(
+        "click",
+        async function() {
+
+          const confirmed =
+            confirm(
+              `Да се одблокира ${item.blocked_date} во ${time}?`
             );
+
+
+          if (!confirmed) {
+            return;
+          }
+
+
+          const {
+            error
+          } =
+            await supabaseClient
+              .from("blocked_times")
+              .delete()
+              .eq(
+                "blocked_date",
+                item.blocked_date
+              )
+              .eq(
+                "blocked_time",
+                item.blocked_time
+              );
+
+
+          if (error) {
+
+            alert(
+              error.message
+            );
+
+            return;
+          }
+
+
+          await loadBlockedTimes();
+
+        }
+      );
+
+
+      wrapper.appendChild(text);
+      wrapper.appendChild(button);
+
+      blockedTimesList.appendChild(
+        wrapper
+      );
+
+    }
+  );
+}
+
+
+/* ==========================
+   BLOCK SINGLE TIME
+========================== */
+
+blockedTimeForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    const date =
+      blockedTimeDateInput.value;
+
+    const time =
+      blockedTimeInput.value;
+
+
+    if (
+      !date ||
+      !time
+    ) {
+      return;
+    }
+
+
+    blockTimeButton.disabled =
+      true;
+
+    blockTimeButton.textContent =
+      "Се зачувува...";
+
+
+    try {
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("blocked_times")
+          .insert({
+            blocked_date:
+              date,
+
+            blocked_time:
+              time
+          });
+
+
+      if (error) {
+
+        if (
+          error.code ===
+          "23505"
+        ) {
+
+          showBlockMessage(
+            "Овој термин веќе е блокиран."
+          );
+
+        } else {
+
+          showBlockMessage(
+            "Грешка: " +
+            error.message
+          );
+
+        }
+
+        return;
+      }
+
+
+      blockedTimeDateInput.value =
+        "";
+
+      blockedTimeInput.value =
+        "";
+
+
+      showBlockMessage(
+        "✅ Терминот е блокиран.",
+        true
+      );
+
+
+      await loadBlockedTimes();
+
+    } finally {
+
+      blockTimeButton.disabled =
+        false;
+
+      blockTimeButton.textContent =
+        "Блокирај термин";
+
+    }
+
+  }
+);
+
+
+/* ==========================
+   LOAD BOOKINGS
+========================== */
+
+async function loadBookings() {
+
+  const user =
+    await checkUser();
+
+  if (!user) {
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("bookings")
+      .select(
+        "id, name, phone, service, booking_date, booking_time"
+      )
+      .order(
+        "booking_date",
+        {
+          ascending: true
+        }
+      )
+      .order(
+        "booking_time",
+        {
+          ascending: true
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      error
+    );
+
+    statusElement.textContent =
+      "Грешка при вчитување на резервациите.";
+
+    return;
+  }
+
+
+  bookingsBody.innerHTML =
+    "";
+
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    statusElement.textContent =
+      "Нема закажани термини.";
+
+    bookingsBody.innerHTML = `
+      <tr>
+        <td
+          colspan="6"
+          class="empty"
+        >
+          Моментално нема резервации.
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+
+  statusElement.textContent =
+    `Вкупно резервации: ${data.length}`;
+
+
+  data.forEach(
+    booking => {
+
+      const row =
+        document.createElement(
+          "tr"
+        );
+
+
+      const time =
+        String(
+          booking.booking_time
+        ).slice(0, 5);
+
+
+      row.innerHTML = `
+
+        <td>
+          ${booking.booking_date}
+        </td>
+
+        <td>
+          ${time}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            booking.name
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            booking.phone
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            booking.service
+          )}
+        </td>
+
+        <td>
+
+          <button
+            class="delete-button"
+            data-id="${booking.id}"
+          >
+            Откажи
+          </button>
+
+        </td>
+
+      `;
+
+
+      bookingsBody.appendChild(
+        row
+      );
+
+    }
+  );
+
+
+  document
+    .querySelectorAll(
+      ".delete-button"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          async function() {
+
+            const id =
+              this.dataset.id;
+
+
+            const confirmed =
+              confirm(
+                "Дали сигурно сакаш да ја откажеш оваа резервација?"
+              );
+
+
+            if (!confirmed) {
+              return;
+            }
+
+
+            const {
+              error
+            } =
+              await supabaseClient
+                .from("bookings")
+                .delete()
+                .eq(
+                  "id",
+                  id
+                );
+
+
+            if (error) {
+
+              alert(
+                error.message
+              );
+
+              return;
+            }
+
+
+            await loadBookings();
 
           }
         );
 
-    }
-
-
-    /* ==========================
-       LOGOUT
-    ========================== */
-
-    logoutButton.addEventListener(
-      "click",
-      async function() {
-
-        await supabaseClient.auth
-          .signOut();
-
-        window.location.href =
-          "login.html";
-
       }
     );
 
+}
 
-    /* ==========================
-       START
-    ========================== */
 
-    loadBlockedDates();
-    loadBookings();
+/* ==========================
+   SAFETY
+========================== */
 
-  </script>
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+/* ==========================
+   LOGOUT
+========================== */
+
+logoutButton.addEventListener(
+  "click",
+  async function() {
+
+    await supabaseClient.auth
+      .signOut();
+
+    window.location.href =
+      "login.html";
+
+  }
+);
+
+
+/* ==========================
+   START
+========================== */
+
+loadBlockedDates();
+loadBlockedTimes();
+loadBookings();
+
+</script>
 
 </body>
 </html>
