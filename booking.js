@@ -1,7 +1,3 @@
-// ==========================================
-// ANETA S-T - ONLINE BOOKING
-// ==========================================
-
 const SUPABASE_URL =
   "https://rrzhahtngfyibmluywnx.supabase.co";
 
@@ -13,11 +9,6 @@ const supabaseClient =
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
-
-
-// ==========================================
-// FORM ELEMENTS
-// ==========================================
 
 const bookingForm =
   document.getElementById("bookingForm");
@@ -44,10 +35,9 @@ const formMessage =
   document.getElementById("formMessage");
 
 
-// ==========================================
-// AVAILABLE HOURS
-// 09:00 - 18:00
-// ==========================================
+/* ==========================================
+   ТЕРМИНИ ОД 09:00 ДО 18:00
+========================================== */
 
 const availableTimes = [
   "09:00",
@@ -59,13 +49,13 @@ const availableTimes = [
   "15:00",
   "16:00",
   "17:00",
-  "18:00",
+  "18:00"
 ];
 
 
-// ==========================================
-// TODAY
-// ==========================================
+/* ==========================================
+   ДЕНЕШЕН ДАТУМ
+========================================== */
 
 function getTodayString() {
 
@@ -85,18 +75,16 @@ function getTodayString() {
   return `${year}-${month}-${day}`;
 }
 
-dateInput.min =
-  getTodayString();
+dateInput.min = getTodayString();
 
 
-// ==========================================
-// SELECT SERVICE
-// ==========================================
+/* ==========================================
+   ИЗБОР НА УСЛУГА
+========================================== */
 
 window.selectService = function(service) {
 
-  serviceInput.value =
-    service;
+  serviceInput.value = service;
 
   setTimeout(function() {
 
@@ -116,9 +104,9 @@ window.selectService = function(service) {
 };
 
 
-// ==========================================
-// MESSAGE
-// ==========================================
+/* ==========================================
+   ПОРАКА
+========================================== */
 
 function showMessage(
   message,
@@ -135,9 +123,9 @@ function showMessage(
 }
 
 
-// ==========================================
-// RESET TIME SELECT
-// ==========================================
+/* ==========================================
+   РЕСЕТ НА ТЕРМИНИ
+========================================== */
 
 function resetTimeSelect(
   message = "Прво избери датум"
@@ -153,15 +141,13 @@ function resetTimeSelect(
   option.textContent =
     message;
 
-  timeInput.appendChild(
-    option
-  );
+  timeInput.appendChild(option);
 }
 
 
-// ==========================================
-// LOAD AVAILABLE TIMES
-// ==========================================
+/* ==========================================
+   ВЧИТУВАЊЕ НА СЛОБОДНИ ТЕРМИНИ
+========================================== */
 
 async function loadAvailableTimes() {
 
@@ -175,14 +161,9 @@ async function loadAvailableTimes() {
     return;
   }
 
-
   resetTimeSelect(
     "Се вчитуваат термините..."
   );
-
-
-  showMessage("");
-
 
   try {
 
@@ -203,16 +184,6 @@ async function loadAvailableTimes() {
       console.error(
         "SUPABASE ERROR:",
         error
-      );
-
-      console.error(
-        "MESSAGE:",
-        error.message
-      );
-
-      console.error(
-        "CODE:",
-        error.code
       );
 
       resetTimeSelect(
@@ -247,36 +218,27 @@ async function loadAvailableTimes() {
       );
 
 
-    timeInput.innerHTML =
-      "";
+    timeInput.innerHTML = "";
 
 
-    if (
-      freeTimes.length === 0
-    ) {
+    if (freeTimes.length === 0) {
 
       const option =
-        document.createElement(
-          "option"
-        );
+        document.createElement("option");
 
       option.value = "";
 
       option.textContent =
         "Нема слободни термини за овој датум";
 
-      timeInput.appendChild(
-        option
-      );
+      timeInput.appendChild(option);
 
       return;
     }
 
 
     const firstOption =
-      document.createElement(
-        "option"
-      );
+      document.createElement("option");
 
     firstOption.value = "";
 
@@ -292,9 +254,7 @@ async function loadAvailableTimes() {
       function(time) {
 
         const option =
-          document.createElement(
-            "option"
-          );
+          document.createElement("option");
 
         option.value =
           time;
@@ -330,9 +290,9 @@ async function loadAvailableTimes() {
 }
 
 
-// ==========================================
-// DATE CHANGE
-// ==========================================
+/* ==========================================
+   КОГА СЕ БИРА ДАТУМ
+========================================== */
 
 dateInput.addEventListener(
   "change",
@@ -340,16 +300,15 @@ dateInput.addEventListener(
 );
 
 
-// ==========================================
-// BOOKING
-// ==========================================
+/* ==========================================
+   РЕЗЕРВАЦИЈА
+========================================== */
 
 bookingForm.addEventListener(
   "submit",
   async function(event) {
 
     event.preventDefault();
-
 
     const name =
       nameInput.value.trim();
@@ -390,9 +349,6 @@ bookingForm.addEventListener(
       "Се резервира...";
 
 
-    showMessage("");
-
-
     try {
 
       const {
@@ -402,20 +358,11 @@ bookingForm.addEventListener(
           .from("bookings")
           .insert([
             {
-              name:
-                name,
-
-              phone:
-                phone,
-
-              service:
-                service,
-
-              booking_date:
-                bookingDate,
-
-              booking_time:
-                bookingTime
+              name: name,
+              phone: phone,
+              service: service,
+              booking_date: bookingDate,
+              booking_time: bookingTime
             }
           ]);
 
@@ -429,8 +376,7 @@ bookingForm.addEventListener(
 
 
         if (
-          error.code ===
-          "23505"
+          error.code === "23505"
         ) {
 
           showMessage(
@@ -445,10 +391,7 @@ bookingForm.addEventListener(
 
         showMessage(
           "Резервацијата не успеа: " +
-          (
-            error.message ||
-            "Непозната грешка"
-          )
+          error.message
         );
 
         return;
@@ -461,17 +404,13 @@ bookingForm.addEventListener(
       );
 
 
-      nameInput.value =
-        "";
+      nameInput.value = "";
 
-      phoneInput.value =
-        "";
+      phoneInput.value = "";
 
-      serviceInput.value =
-        "";
+      serviceInput.value = "";
 
-      dateInput.value =
-        "";
+      dateInput.value = "";
 
 
       resetTimeSelect(
@@ -498,16 +437,15 @@ bookingForm.addEventListener(
 
       bookingButton.textContent =
         "Закажи термин";
-
     }
 
   }
 );
 
 
-// ==========================================
-// INITIAL STATE
-// ==========================================
+/* ==========================================
+   ПОЧЕТНА СОСТОЈБА
+========================================== */
 
 resetTimeSelect(
   "Прво избери датум"
