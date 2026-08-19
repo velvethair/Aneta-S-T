@@ -31,13 +31,7 @@ img {
   margin: auto;
 }
 
-
-/* =========================
-   COLORS
-========================= */
-
 :root {
-  --green: #95aa94;
   --green-dark: #536b58;
   --green-soft: #dfe8d9;
   --green-light: #edf2e7;
@@ -50,9 +44,7 @@ img {
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 .header {
   position: sticky;
@@ -118,21 +110,8 @@ nav a:hover {
   transform: translateY(-2px);
 }
 
-.button-outline {
-  background: rgba(255, 255, 255, 0.22);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-}
 
-.button-outline:hover {
-  background: var(--yellow-light);
-  color: var(--text);
-}
-
-
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero {
   background: #edf2e7;
@@ -155,7 +134,6 @@ nav a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
 }
 
 .hero-dark {
@@ -209,13 +187,14 @@ nav a:hover {
 }
 
 
-/* =========================
-   ABOUT
-========================= */
+/* SECTIONS */
 
 .section {
   padding: 95px 0;
 }
+
+
+/* ABOUT */
 
 .about {
   background: var(--cream);
@@ -271,9 +250,7 @@ nav a:hover {
 }
 
 
-/* =========================
-   SERVICES
-========================= */
+/* SERVICES */
 
 .services {
   background: var(--green-soft);
@@ -354,9 +331,7 @@ nav a:hover {
 }
 
 
-/* =========================
-   FEATURE IMAGE
-========================= */
+/* FEATURE */
 
 .feature-image {
   position: relative;
@@ -400,9 +375,7 @@ nav a:hover {
 }
 
 
-/* =========================
-   GALLERY
-========================= */
+/* GALLERY */
 
 .gallery {
   background: var(--cream);
@@ -437,9 +410,7 @@ nav a:hover {
 }
 
 
-/* =========================
-   BOOKING
-========================= */
+/* BOOKING */
 
 .booking {
   background: #edf2e7;
@@ -526,9 +497,7 @@ option {
 }
 
 
-/* =========================
-   CONTACT
-========================= */
+/* CONTACT */
 
 .contact {
   background: #dce7d6;
@@ -551,9 +520,7 @@ option {
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer {
   background: #536b58;
@@ -578,9 +545,7 @@ footer p {
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media (max-width: 900px) {
 
