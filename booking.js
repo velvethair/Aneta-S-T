@@ -88,6 +88,32 @@ dateInput.min =
 
 
 // ==========================================
+// SERVICE SELECTION
+// ==========================================
+
+window.selectService = function(service) {
+
+  serviceInput.value = service;
+
+  const bookingSection =
+    document.getElementById("booking");
+
+  if (bookingSection) {
+
+    setTimeout(function() {
+
+      bookingSection.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }, 50);
+
+  }
+
+};
+
+
+// ==========================================
 // MESSAGE
 // ==========================================
 
@@ -160,11 +186,11 @@ async function loadAvailableTimes() {
       error
     } =
       await supabaseClient
-        .from("bookings")
-        .select("booking_time")
-        .eq(
-          "booking_date",
-          selectedDate
+        .rpc(
+          "get_booked_times",
+          {
+            p_date: selectedDate
+          }
         );
 
 
@@ -173,16 +199,6 @@ async function loadAvailableTimes() {
       console.error(
         "SUPABASE ERROR:",
         error
-      );
-
-      console.error(
-        "MESSAGE:",
-        error.message
-      );
-
-      console.error(
-        "CODE:",
-        error.code
       );
 
       resetTimeSelect(
@@ -260,7 +276,7 @@ async function loadAvailableTimes() {
 
 
     freeTimes.forEach(
-      time => {
+      function(time) {
 
         const option =
           document.createElement(
@@ -294,7 +310,9 @@ async function loadAvailableTimes() {
     showMessage(
       "Се појави проблем со поврзувањето."
     );
+
   }
+
 }
 
 
@@ -309,40 +327,12 @@ dateInput.addEventListener(
 
 
 // ==========================================
-// SERVICE BUTTONS
-// ==========================================
-
-document
-  .querySelectorAll(
-    ".service-booking"
-  )
-  .forEach(
-    link => {
-
-      link.addEventListener(
-        "click",
-        function () {
-
-          const selectedService =
-            this.dataset.service;
-
-          serviceInput.value =
-            selectedService;
-
-        }
-      );
-
-    }
-  );
-
-
-// ==========================================
 // BOOKING
 // ==========================================
 
 bookingForm.addEventListener(
   "submit",
-  async function (event) {
+  async function(event) {
 
     event.preventDefault();
 
@@ -384,9 +374,6 @@ bookingForm.addEventListener(
 
     bookingButton.textContent =
       "Се резервира...";
-
-
-    showMessage("");
 
 
     try {
@@ -494,7 +481,6 @@ bookingForm.addEventListener(
         "❌ Се појави грешка. Обидете се повторно."
       );
 
-
     } finally {
 
       bookingButton.disabled =
@@ -502,6 +488,7 @@ bookingForm.addEventListener(
 
       bookingButton.textContent =
         "Закажи термин";
+
     }
 
   }
@@ -509,7 +496,7 @@ bookingForm.addEventListener(
 
 
 // ==========================================
-// INITIAL STATE
+// INITIAL
 // ==========================================
 
 resetTimeSelect(
