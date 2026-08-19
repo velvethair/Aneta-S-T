@@ -2,7 +2,7 @@ const SUPABASE_URL =
   "https://rrzhahtngfyibmluywnx.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
+  "YOUR_PUBLISHABLE_KEY";
 
 const supabaseClient =
   window.supabase.createClient(
@@ -60,22 +60,20 @@ const availableTimes = [
 function getTodayString() {
   const today = new Date();
 
-  const year =
-    today.getFullYear();
+  const year = today.getFullYear();
 
-  const month =
-    String(today.getMonth() + 1)
-      .padStart(2, "0");
+  const month = String(
+    today.getMonth() + 1
+  ).padStart(2, "0");
 
-  const day =
-    String(today.getDate())
-      .padStart(2, "0");
+  const day = String(
+    today.getDate()
+  ).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
 }
 
-dateInput.min =
-  getTodayString();
+dateInput.min = getTodayString();
 
 
 /* ==========================================
@@ -84,8 +82,7 @@ dateInput.min =
 
 window.selectService = function(service) {
 
-  serviceInput.value =
-    service;
+  serviceInput.value = service;
 
   const booking =
     document.getElementById("booking");
@@ -137,18 +134,14 @@ function resetTimeSelect(
     document.createElement("option");
 
   option.value = "";
+  option.textContent = message;
 
-  option.textContent =
-    message;
-
-  timeInput.appendChild(
-    option
-  );
+  timeInput.appendChild(option);
 }
 
 
 /* ==========================================
-   ПРОВЕРКА ДАЛИ ДАТУМОТ Е БЛОКИРАН
+   ПРОВЕРКА ЦЕЛ ДЕН
 ========================================== */
 
 async function isDateBlocked(date) {
@@ -179,7 +172,44 @@ async function isDateBlocked(date) {
 
 
 /* ==========================================
-   ВЧИТУВАЊЕ НА СЛОБОДНИ ТЕРМИНИ
+   ЗЕМИ БЛОКИРАНИ ЧАСОВИ
+========================================== */
+
+async function getBlockedTimes(date) {
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("blocked_times")
+      .select("blocked_time")
+      .eq(
+        "blocked_date",
+        date
+      );
+
+  if (error) {
+
+    console.error(
+      "BLOCKED TIMES ERROR:",
+      error
+    );
+
+    return [];
+  }
+
+  return (data || []).map(
+    item =>
+      String(
+        item.blocked_time
+      ).slice(0, 5)
+  );
+}
+
+
+/* ==========================================
+   ВЧИТАЈ СЛОБОДНИ ТЕРМИНИ
 ========================================== */
 
 async function loadAvailableTimes() {
@@ -203,13 +233,15 @@ async function loadAvailableTimes() {
 
   try {
 
-    const blocked =
+    /* ЦЕЛ ДЕН БЛОКИРАН */
+
+    const blockedDay =
       await isDateBlocked(
         selectedDate
       );
 
 
-    if (blocked) {
+    if (blockedDay) {
 
       resetTimeSelect(
         "Нема термини - датумот е блокиран"
@@ -223,10 +255,15 @@ async function loadAvailableTimes() {
     }
 
 
-    resetTimeSelect(
-      "Се вчитуваат термините..."
-    );
+    /* БЛОКИРАНИ ЧАСОВИ */
 
+    const blockedTimes =
+      await getBlockedTimes(
+        selectedDate
+      );
+
+
+    /* ВЕЌЕ РЕЗЕРВИРАНИ ЧАСОВИ */
 
     const {
       data,
@@ -243,7 +280,7 @@ async function loadAvailableTimes() {
     if (error) {
 
       console.error(
-        "SUPABASE ERROR:",
+        "BOOKED TIMES ERROR:",
         error
       );
 
@@ -272,17 +309,18 @@ async function loadAvailableTimes() {
       );
 
 
+    /* ГИ ТРГАМЕ И РЕЗЕРВИРАНИТЕ
+       И БЛОКИРАНИТЕ ЧАСОВИ */
+
     const freeTimes =
       availableTimes.filter(
         time =>
-          !bookedTimes.includes(
-            time
-          )
+          !bookedTimes.includes(time) &&
+          !blockedTimes.includes(time)
       );
 
 
-    timeInput.innerHTML =
-      "";
+    timeInput.innerHTML = "";
 
 
     if (
@@ -354,7 +392,7 @@ async function loadAvailableTimes() {
 
 
 /* ==========================================
-   ДАТУМ ПРОМЕНА
+   ДАТУМ
 ========================================== */
 
 dateInput.addEventListener(
@@ -415,17 +453,18 @@ bookingForm.addEventListener(
 
     try {
 
-      /* Повторна проверка */
-      const blocked =
+      /* ПРОВЕРКА НА ЦЕЛ ДЕН */
+
+      const blockedDay =
         await isDateBlocked(
           bookingDate
         );
 
 
-      if (blocked) {
+      if (blockedDay) {
 
         showMessage(
-          "Овој датум во меѓувреме е блокиран."
+          "Овој датум е блокиран."
         );
 
         await loadAvailableTimes();
@@ -433,6 +472,32 @@ bookingForm.addEventListener(
         return;
       }
 
+
+      /* ПРОВЕРКА НА ЧАС */
+
+      const blockedTimes =
+        await getBlockedTimes(
+          bookingDate
+        );
+
+
+      if (
+        blockedTimes.includes(
+          bookingTime
+        )
+      ) {
+
+        showMessage(
+          "Овој термин е блокиран."
+        );
+
+        await loadAvailableTimes();
+
+        return;
+      }
+
+
+      /* КРЕИРАЊЕ РЕЗЕРВАЦИЈА */
 
       const {
         error
@@ -473,7 +538,7 @@ bookingForm.addEventListener(
         ) {
 
           showMessage(
-            "Овој термин веќе е резервиран. Изберете друг термин."
+            "Овој термин веќе е резервиран."
           );
 
           await loadAvailableTimes();
@@ -497,18 +562,10 @@ bookingForm.addEventListener(
       );
 
 
-      nameInput.value =
-        "";
-
-      phoneInput.value =
-        "";
-
-      serviceInput.value =
-        "";
-
-      dateInput.value =
-        "";
-
+      nameInput.value = "";
+      phoneInput.value = "";
+      serviceInput.value = "";
+      dateInput.value = "";
 
       resetTimeSelect(
         "Прво избери датум"
