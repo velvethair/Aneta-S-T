@@ -1,548 +1,549 @@
-```html
 <!DOCTYPE html>
 <html lang="mk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Aneta S-T | Nail Studio</title>
+  <meta charset="UTF-8">
 
   <meta
-    name="description"
-    content="Aneta S-T Nail Studio – маникир, педикир и надградба. Закажи термин онлајн."
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
   >
 
-  <link rel="stylesheet" href="style.css">
+  <title>Aneta S-T | Admin</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #edf2e7;
+      color: #354238;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .header {
+      background: #fffef8;
+      border: 1px solid #d7e0d0;
+      border-radius: 20px;
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: bold;
+      color: #536b58;
+    }
+
+    .logo span {
+      color: #b5a34f;
+    }
+
+    .subtitle {
+      color: #7a877d;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .logout {
+      border: none;
+      background: #536b58;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .logout:hover {
+      background: #405544;
+    }
+
+    .card {
+      background: #fffef8;
+      border: 1px solid #d7e0d0;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      font-family: Georgia, serif;
+      margin-bottom: 20px;
+      color: #536b58;
+    }
+
+    .status {
+      margin-bottom: 15px;
+      color: #708075;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 750px;
+    }
+
+    th {
+      background: #dfe8d9;
+      color: #536b58;
+      padding: 14px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #e4e9df;
+      font-size: 14px;
+    }
+
+    tr:hover {
+      background: #faf9f1;
+    }
+
+    .delete-button {
+      border: none;
+      background: #d9a6a0;
+      color: white;
+      padding: 8px 13px;
+      border-radius: 18px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .delete-button:hover {
+      background: #bd7770;
+    }
+
+    .empty {
+      text-align: center;
+      color: #7a877d;
+      padding: 35px;
+    }
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 15px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container nav">
+  <div class="container">
 
-      <a href="#home" class="logo">
-        ANETA <span>S-T</span>
-      </a>
-
-      <nav>
-        <a href="#home">Почетна</a>
-        <a href="#about">За нас</a>
-        <a href="#services">Услуги</a>
-        <a href="#gallery">Галерија</a>
-        <a href="#booking">Закажи</a>
-        <a href="#contact">Контакт</a>
-      </nav>
-
-      <a href="#booking" class="nav-button">
-        Закажи термин
-      </a>
-
-    </div>
-  </header>
-
-
-  <!-- HERO -->
-  <section class="hero" id="home">
-
-    <div class="hero-image">
-
-      <img
-        src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1800&q=90"
-        alt="Aneta S-T manicure"
-      >
-
-      <div class="hero-dark"></div>
-
-      <div class="hero-center">
-
-        <p class="eyebrow">
-          ANETA S-T • NAIL STUDIO
-        </p>
-
-        <h1>
-          Elegance
-          <span>in every detail.</span>
-        </h1>
-
-        <a href="#booking" class="button">
-          Закажи термин
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ABOUT -->
-  <section class="about section" id="about">
-
-    <div class="container about-grid">
-
-      <div class="about-image">
-
-        <img
-          src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=1200&q=90"
-          alt="Elegant manicure"
-        >
-
-      </div>
-
-      <div class="about-text">
-
-        <p class="eyebrow">
-          ANETA S-T
-        </p>
-
-        <h2>
-          Луксузот е
-          <br>
-          <span>во деталите.</span>
-        </h2>
-
-        <p>
-          Во Aneta S-T создаваме негуван,
-          елегантен и модерен изглед со
-          внимание на секој детал.
-        </p>
-
-        <p>
-          Секој третман е прилагоден на
-          твојот стил и желби.
-        </p>
-
-        <a href="#booking" class="text-link">
-          Закажи термин →
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- SERVICES -->
-  <section class="services section" id="services">
-
-    <div class="container">
-
-      <div class="section-heading">
-
-        <p class="eyebrow">
-          OUR SERVICES
-        </p>
-
-        <h2>
-          Избери го твојот
-          <span>третман.</span>
-        </h2>
-
-        <p>
-          Професионална нега со модерен
-          и елегантен пристап.
-        </p>
-
-      </div>
-
-
-      <div class="services-grid">
-
-        <!-- MANIKIR -->
-        <div class="service-card">
-
-          <div class="service-number">
-            01
-          </div>
-
-          <h3>
-            Маникир
-          </h3>
-
-          <p>
-            Нега, обликување и уредување
-            на природните нокти.
-          </p>
-
-          <a
-            href="#booking"
-            class="service-booking"
-            data-service="Маникир"
-            onclick="selectService('Маникир')"
-          >
-            Закажи →
-          </a>
-
-        </div>
-
-
-        <!-- PEDIKIR -->
-        <div class="service-card featured">
-
-          <div class="service-number">
-            02
-          </div>
-
-          <h3>
-            Педикир
-          </h3>
-
-          <p>
-            Детална нега за убави,
-            мазни и негувани стапала.
-          </p>
-
-          <a
-            href="#booking"
-            class="service-booking"
-            data-service="Педикир"
-            onclick="selectService('Педикир')"
-          >
-            Закажи →
-          </a>
-
-        </div>
-
-
-        <!-- NADGRADBA -->
-        <div class="service-card">
-
-          <div class="service-number">
-            03
-          </div>
-
-          <h3>
-            Надградба
-          </h3>
-
-          <p>
-            Совршена должина и форма
-            според твојот стил.
-          </p>
-
-          <a
-            href="#booking"
-            class="service-booking"
-            data-service="Надградба"
-            onclick="selectService('Надградба')"
-          >
-            Закажи →
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- FEATURE IMAGE -->
-  <section class="feature-image">
-
-    <img
-      src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1800&q=90"
-      alt="Luxury nails"
-    >
-
-    <div class="feature-overlay">
-
-      <p class="eyebrow">
-        YOUR STYLE
-      </p>
-
-      <h2>
-        Elegant.
-        <span>Beautiful.</span>
-      </h2>
-
-    </div>
-
-  </section>
-
-
-  <!-- GALLERY -->
-  <section class="gallery section" id="gallery">
-
-    <div class="container">
-
-      <div class="section-heading">
-
-        <p class="eyebrow">
-          GALLERY
-        </p>
-
-        <h2>
-          Инспирација за
-          <span>твојот следен look.</span>
-        </h2>
-
-      </div>
-
-
-      <div class="gallery-grid">
-
-        <div class="gallery-item gallery-large">
-
-          <img
-            src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1000&q=90"
-            alt="Manicure design"
-          >
-
-        </div>
-
-
-        <div class="gallery-item">
-
-          <img
-            src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=800&q=90"
-            alt="Elegant manicure"
-          >
-
-        </div>
-
-
-        <div class="gallery-item">
-
-          <img
-            src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=90"
-            alt="Beauty studio"
-          >
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- BOOKING -->
-  <section class="booking section" id="booking">
-
-    <div class="container booking-box">
-
-      <div class="booking-intro">
-
-        <p class="eyebrow">
-          ONLINE BOOKING
-        </p>
-
-        <h2>
-          Закажи го
-          <span>твојот термин.</span>
-        </h2>
-
-        <p>
-          Избери услуга, датум и слободен термин.
-          Зафатените термини автоматски нема
-          да бидат достапни.
-        </p>
-
-      </div>
-
-
-      <form id="bookingForm">
-
-        <!-- NAME -->
-        <div class="form-group">
-
-          <label for="name">
-            Име и презиме
-          </label>
-
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Твоето име"
-            autocomplete="name"
-            required
-          >
-
-        </div>
-
-
-        <!-- PHONE -->
-        <div class="form-group">
-
-          <label for="phone">
-            Телефон
-          </label>
-
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="078 XXX XXX"
-            autocomplete="tel"
-            required
-          >
-
-        </div>
-
-
-        <!-- SERVICE -->
-        <div class="form-group">
-
-          <label for="service">
-            Услуга
-          </label>
-
-          <select
-            id="service"
-            name="service"
-            required
-          >
-
-            <option value="">
-              Избери услуга
-            </option>
-
-            <option value="Маникир">
-              Маникир
-            </option>
-
-            <option value="Педикир">
-              Педикир
-            </option>
-
-            <option value="Надградба">
-              Надградба
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- DATE -->
-        <div class="form-group">
-
-          <label for="date">
-            Избери датум
-          </label>
-
-          <input
-            type="date"
-            id="date"
-            name="date"
-            required
-          >
-
-        </div>
-
-
-        <!-- TIME -->
-        <div class="form-group">
-
-          <label for="time">
-            Слободен термин
-          </label>
-
-          <select
-            id="time"
-            name="time"
-            required
-          >
-
-            <option value="">
-              Прво избери датум
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- BUTTON -->
-        <button
-          type="submit"
-          class="button full-button"
-          id="bookingButton"
-        >
-          Закажи термин
-        </button>
-
-
-        <!-- MESSAGE -->
-        <p id="formMessage"></p>
-
-      </form>
-
-    </div>
-
-  </section>
-
-
-  <!-- CONTACT -->
-  <section class="contact section" id="contact">
-
-    <div class="container contact-grid">
+    <div class="header">
 
       <div>
+        <div class="logo">
+          ANETA <span>S-T</span>
+        </div>
 
-        <p class="eyebrow">
-          CONTACT
-        </p>
-
-        <h2>
-          Step into
-          <span>beauty.</span>
-        </h2>
-
+        <div class="subtitle">
+          Admin панел • Резервации
+        </div>
       </div>
 
+      <button
+        class="logout"
+        id="logoutButton"
+      >
+        Одјави се
+      </button>
 
-      <div class="contact-info">
+    </div>
 
-        <p>
-          📍 Неготино, Северна Македонија
-        </p>
 
-        <p>
-          📞 078 700 501
-        </p>
+    <div class="card">
 
-        <p>
-          Instagram: @aneta_st
-        </p>
+      <h2>
+        Закажани термини
+      </h2>
+
+      <div
+        class="status"
+        id="status"
+      >
+        Се вчитуваат резервациите...
+      </div>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Датум</th>
+              <th>Време</th>
+              <th>Клиент</th>
+              <th>Телефон</th>
+              <th>Услуга</th>
+              <th>Акција</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="bookingsBody"></tbody>
+
+        </table>
 
       </div>
 
     </div>
 
-  </section>
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    <div class="container footer-content">
-
-      <div class="logo">
-        ANETA <span>S-T</span>
-      </div>
-
-      <p>
-        © 2026 Aneta S-T
-      </p>
-
-    </div>
-
-  </footer>
+  </div>
 
 
   <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- BOOKING SYSTEM -->
-  <script src="booking.js"></script>
+  <script>
+
+    const SUPABASE_URL =
+      "https://rrzhahtngfyibmluywnx.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    const bookingsBody =
+      document.getElementById(
+        "bookingsBody"
+      );
+
+    const statusElement =
+      document.getElementById(
+        "status"
+      );
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+
+    // ==========================
+    // CHECK LOGIN
+    // ==========================
+
+    async function checkUser() {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.getUser();
+
+
+      if (
+        error ||
+        !data.user
+      ) {
+
+        window.location.href =
+          "login.html";
+
+        return null;
+      }
+
+
+      return data.user;
+    }
+
+
+    // ==========================
+    // LOAD BOOKINGS
+    // ==========================
+
+    async function loadBookings() {
+
+      const user =
+        await checkUser();
+
+      if (!user) {
+        return;
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("bookings")
+          .select(
+            "id, name, phone, service, booking_date, booking_time"
+          )
+          .order(
+            "booking_date",
+            {
+              ascending: true
+            }
+          )
+          .order(
+            "booking_time",
+            {
+              ascending: true
+            }
+          );
+
+
+      if (error) {
+
+        console.error(
+          "ADMIN ERROR:",
+          error
+        );
+
+        statusElement.textContent =
+          "Грешка при вчитување на резервациите.";
+
+        return;
+      }
+
+
+      bookingsBody.innerHTML =
+        "";
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        statusElement.textContent =
+          "Нема закажани термини.";
+
+        bookingsBody.innerHTML =
+          `
+            <tr>
+              <td
+                colspan="6"
+                class="empty"
+              >
+                Моментално нема резервации.
+              </td>
+            </tr>
+          `;
+
+        return;
+      }
+
+
+      statusElement.textContent =
+        `Вкупно резервации: ${data.length}`;
+
+
+      data.forEach(
+        booking => {
+
+          const row =
+            document.createElement(
+              "tr"
+            );
+
+
+          const date =
+            String(
+              booking.booking_date
+            );
+
+
+          const time =
+            String(
+              booking.booking_time
+            ).slice(0, 5);
+
+
+          row.innerHTML = `
+
+            <td>
+              ${date}
+            </td>
+
+            <td>
+              ${time}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                booking.name
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                booking.phone
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                booking.service
+              )}
+            </td>
+
+            <td>
+
+              <button
+                class="delete-button"
+                data-id="${booking.id}"
+              >
+                Откажи
+              </button>
+
+            </td>
+
+          `;
+
+
+          bookingsBody.appendChild(
+            row
+          );
+
+        }
+      );
+
+
+      document
+        .querySelectorAll(
+          ".delete-button"
+        )
+        .forEach(
+          button => {
+
+            button.addEventListener(
+              "click",
+              async function() {
+
+                const id =
+                  this.dataset.id;
+
+
+                const confirmed =
+                  confirm(
+                    "Дали сигурно сакаш да ја откажеш оваа резервација?"
+                  );
+
+
+                if (!confirmed) {
+                  return;
+                }
+
+
+                const {
+                  error
+                } =
+                  await supabaseClient
+                    .from("bookings")
+                    .delete()
+                    .eq(
+                      "id",
+                      id
+                    );
+
+
+                if (error) {
+
+                  alert(
+                    "Неуспешно бришење: " +
+                    error.message
+                  );
+
+                  return;
+                }
+
+
+                await loadBookings();
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    // ==========================
+    // HTML SAFETY
+    // ==========================
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    // ==========================
+    // LOGOUT
+    // ==========================
+
+    logoutButton.addEventListener(
+      "click",
+      async function() {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+          "login.html";
+
+      }
+    );
+
+
+    // ==========================
+    // START
+    // ==========================
+
+    loadBookings();
+
+  </script>
 
 </body>
 </html>
-```
