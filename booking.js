@@ -1,7 +1,3 @@
-// ==========================================
-// ANETA S-T - ONLINE BOOKING
-// ==========================================
-
 const SUPABASE_URL =
   "https://rrzhahtngfyibmluywnx.supabase.co";
 
@@ -13,11 +9,6 @@ const supabaseClient =
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
-
-
-// ==========================================
-// FORM ELEMENTS
-// ==========================================
 
 const bookingForm =
   document.getElementById("bookingForm");
@@ -44,10 +35,6 @@ const formMessage =
   document.getElementById("formMessage");
 
 
-// ==========================================
-// AVAILABLE HOURS
-// ==========================================
-
 const availableTimes = [
   "09:00",
   "10:00",
@@ -60,10 +47,6 @@ const availableTimes = [
   "17:00"
 ];
 
-
-// ==========================================
-// TODAY
-// ==========================================
 
 function getTodayString() {
 
@@ -83,39 +66,33 @@ function getTodayString() {
   return `${year}-${month}-${day}`;
 }
 
+
 dateInput.min =
   getTodayString();
 
 
-// ==========================================
-// SERVICE SELECTION
-// ==========================================
-
 window.selectService = function(service) {
 
-  serviceInput.value = service;
+  serviceInput.value =
+    service;
 
-  const bookingSection =
-    document.getElementById("booking");
+  setTimeout(function() {
 
-  if (bookingSection) {
+    const booking =
+      document.getElementById("booking");
 
-    setTimeout(function() {
+    if (booking) {
 
-      bookingSection.scrollIntoView({
+      booking.scrollIntoView({
         behavior: "smooth"
       });
 
-    }, 50);
+    }
 
-  }
+  }, 50);
 
 };
 
-
-// ==========================================
-// MESSAGE
-// ==========================================
 
 function showMessage(
   message,
@@ -132,10 +109,6 @@ function showMessage(
 }
 
 
-// ==========================================
-// RESET TIME
-// ==========================================
-
 function resetTimeSelect(
   message = "Прво избери датум"
 ) {
@@ -150,15 +123,9 @@ function resetTimeSelect(
   option.textContent =
     message;
 
-  timeInput.appendChild(
-    option
-  );
+  timeInput.appendChild(option);
 }
 
-
-// ==========================================
-// LOAD AVAILABLE TIMES
-// ==========================================
 
 async function loadAvailableTimes() {
 
@@ -172,11 +139,10 @@ async function loadAvailableTimes() {
     return;
   }
 
+
   resetTimeSelect(
     "Се вчитуваат термините..."
   );
-
-  showMessage("");
 
 
   try {
@@ -185,13 +151,12 @@ async function loadAvailableTimes() {
       data,
       error
     } =
-      await supabaseClient
-        .rpc(
-          "get_booked_times",
-          {
-            p_date: selectedDate
-          }
-        );
+      await supabaseClient.rpc(
+        "get_booked_times",
+        {
+          p_date: selectedDate
+        }
+      );
 
 
     if (error) {
@@ -229,9 +194,7 @@ async function loadAvailableTimes() {
     const freeTimes =
       availableTimes.filter(
         time =>
-          !bookedTimes.includes(
-            time
-          )
+          !bookedTimes.includes(time)
       );
 
 
@@ -252,9 +215,7 @@ async function loadAvailableTimes() {
       option.textContent =
         "Нема слободни термини за овој датум";
 
-      timeInput.appendChild(
-        option
-      );
+      timeInput.appendChild(option);
 
       return;
     }
@@ -276,18 +237,15 @@ async function loadAvailableTimes() {
 
 
     freeTimes.forEach(
-      function(time) {
+      time => {
 
         const option =
           document.createElement(
             "option"
           );
 
-        option.value =
-          time;
-
-        option.textContent =
-          time;
+        option.value = time;
+        option.textContent = time;
 
         timeInput.appendChild(
           option
@@ -299,7 +257,7 @@ async function loadAvailableTimes() {
   } catch (error) {
 
     console.error(
-      "GENERAL ERROR:",
+      "ERROR:",
       error
     );
 
@@ -316,19 +274,11 @@ async function loadAvailableTimes() {
 }
 
 
-// ==========================================
-// DATE CHANGE
-// ==========================================
-
 dateInput.addEventListener(
   "change",
   loadAvailableTimes
 );
 
-
-// ==========================================
-// BOOKING
-// ==========================================
 
 bookingForm.addEventListener(
   "submit",
@@ -379,30 +329,19 @@ bookingForm.addEventListener(
     try {
 
       const {
-        data,
         error
       } =
         await supabaseClient
           .from("bookings")
           .insert([
             {
-              name:
-                name,
-
-              phone:
-                phone,
-
-              service:
-                service,
-
-              booking_date:
-                bookingDate,
-
-              booking_time:
-                bookingTime
+              name: name,
+              phone: phone,
+              service: service,
+              booking_date: bookingDate,
+              booking_time: bookingTime
             }
-          ])
-          .select();
+          ]);
 
 
       if (error) {
@@ -430,20 +369,11 @@ bookingForm.addEventListener(
 
         showMessage(
           "Резервацијата не успеа: " +
-          (
-            error.message ||
-            "Непозната грешка"
-          )
+          error.message
         );
 
         return;
       }
-
-
-      console.log(
-        "BOOKING CREATED:",
-        data
-      );
 
 
       showMessage(
@@ -452,33 +382,22 @@ bookingForm.addEventListener(
       );
 
 
-      nameInput.value =
-        "";
+      nameInput.value = "";
+      phoneInput.value = "";
+      serviceInput.value = "";
+      dateInput.value = "";
 
-      phoneInput.value =
-        "";
-
-      serviceInput.value =
-        "";
-
-      dateInput.value =
-        "";
-
-
-      resetTimeSelect(
-        "Прво избери датум"
-      );
+      resetTimeSelect();
 
 
     } catch (error) {
 
       console.error(
-        "FINAL ERROR:",
         error
       );
 
       showMessage(
-        "❌ Се појави грешка. Обидете се повторно."
+        "❌ Се појави грешка."
       );
 
     } finally {
@@ -491,14 +410,7 @@ bookingForm.addEventListener(
 
     }
 
-  }
-);
+  });
 
 
-// ==========================================
-// INITIAL
-// ==========================================
-
-resetTimeSelect(
-  "Прво избери датум"
-);
+resetTimeSelect();
