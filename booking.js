@@ -2,7 +2,7 @@ const SUPABASE_URL =
   "https://rrzhahtngfyibmluywnx.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_5h-dxVdOY5NoXcy0EgWjuA_aX2j4jpt";
+  "YOUR_PUBLISHABLE_KEY";
 
 const supabaseClient =
   window.supabase.createClient(
@@ -36,7 +36,7 @@ const formMessage =
 
 
 /* ==========================================
-   ТЕРМИНИ ОД 09:00 ДО 18:00
+   ТЕРМИНИ 09:00 - 18:00
 ========================================== */
 
 const availableTimes = [
@@ -58,7 +58,6 @@ const availableTimes = [
 ========================================== */
 
 function getTodayString() {
-
   const today = new Date();
 
   const year =
@@ -75,7 +74,8 @@ function getTodayString() {
   return `${year}-${month}-${day}`;
 }
 
-dateInput.min = getTodayString();
+dateInput.min =
+  getTodayString();
 
 
 /* ==========================================
@@ -84,23 +84,23 @@ dateInput.min = getTodayString();
 
 window.selectService = function(service) {
 
-  serviceInput.value = service;
+  serviceInput.value =
+    service;
 
-  setTimeout(function() {
+  const booking =
+    document.getElementById("booking");
 
-    const booking =
-      document.getElementById("booking");
+  if (booking) {
 
-    if (booking) {
+    setTimeout(function() {
 
       booking.scrollIntoView({
         behavior: "smooth"
       });
 
-    }
+    }, 50);
 
-  }, 50);
-
+  }
 };
 
 
@@ -124,7 +124,7 @@ function showMessage(
 
 
 /* ==========================================
-   РЕСЕТ НА ТЕРМИНИ
+   RESET НА ТЕРМИНИ
 ========================================== */
 
 function resetTimeSelect(
@@ -141,7 +141,40 @@ function resetTimeSelect(
   option.textContent =
     message;
 
-  timeInput.appendChild(option);
+  timeInput.appendChild(
+    option
+  );
+}
+
+
+/* ==========================================
+   ПРОВЕРКА ДАЛИ ДАТУМОТ Е БЛОКИРАН
+========================================== */
+
+async function isDateBlocked(date) {
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "is_date_blocked",
+      {
+        p_date: date
+      }
+    );
+
+  if (error) {
+
+    console.error(
+      "BLOCKED DATE ERROR:",
+      error
+    );
+
+    return false;
+  }
+
+  return data === true;
 }
 
 
@@ -162,10 +195,38 @@ async function loadAvailableTimes() {
   }
 
   resetTimeSelect(
-    "Се вчитуваат термините..."
+    "Се проверува датумот..."
   );
 
+  showMessage("");
+
+
   try {
+
+    const blocked =
+      await isDateBlocked(
+        selectedDate
+      );
+
+
+    if (blocked) {
+
+      resetTimeSelect(
+        "Нема термини - датумот е блокиран"
+      );
+
+      showMessage(
+        "Овој датум не е достапен за закажување."
+      );
+
+      return;
+    }
+
+
+    resetTimeSelect(
+      "Се вчитуваат термините..."
+    );
+
 
     const {
       data,
@@ -214,31 +275,32 @@ async function loadAvailableTimes() {
     const freeTimes =
       availableTimes.filter(
         time =>
-          !bookedTimes.includes(time)
+          !bookedTimes.includes(
+            time
+          )
       );
 
 
-    timeInput.innerHTML = "";
+    timeInput.innerHTML =
+      "";
 
 
-    if (freeTimes.length === 0) {
+    if (
+      freeTimes.length === 0
+    ) {
 
-      const option =
-        document.createElement("option");
-
-      option.value = "";
-
-      option.textContent =
-        "Нема слободни термини за овој датум";
-
-      timeInput.appendChild(option);
+      resetTimeSelect(
+        "Нема слободни термини за овој датум"
+      );
 
       return;
     }
 
 
     const firstOption =
-      document.createElement("option");
+      document.createElement(
+        "option"
+      );
 
     firstOption.value = "";
 
@@ -254,7 +316,9 @@ async function loadAvailableTimes() {
       function(time) {
 
         const option =
-          document.createElement("option");
+          document.createElement(
+            "option"
+          );
 
         option.value =
           time;
@@ -286,12 +350,11 @@ async function loadAvailableTimes() {
     );
 
   }
-
 }
 
 
 /* ==========================================
-   КОГА СЕ БИРА ДАТУМ
+   ДАТУМ ПРОМЕНА
 ========================================== */
 
 dateInput.addEventListener(
@@ -309,6 +372,7 @@ bookingForm.addEventListener(
   async function(event) {
 
     event.preventDefault();
+
 
     const name =
       nameInput.value.trim();
@@ -351,6 +415,25 @@ bookingForm.addEventListener(
 
     try {
 
+      /* Повторна проверка */
+      const blocked =
+        await isDateBlocked(
+          bookingDate
+        );
+
+
+      if (blocked) {
+
+        showMessage(
+          "Овој датум во меѓувреме е блокиран."
+        );
+
+        await loadAvailableTimes();
+
+        return;
+      }
+
+
       const {
         error
       } =
@@ -358,11 +441,20 @@ bookingForm.addEventListener(
           .from("bookings")
           .insert([
             {
-              name: name,
-              phone: phone,
-              service: service,
-              booking_date: bookingDate,
-              booking_time: bookingTime
+              name:
+                name,
+
+              phone:
+                phone,
+
+              service:
+                service,
+
+              booking_date:
+                bookingDate,
+
+              booking_time:
+                bookingTime
             }
           ]);
 
@@ -376,7 +468,8 @@ bookingForm.addEventListener(
 
 
         if (
-          error.code === "23505"
+          error.code ===
+          "23505"
         ) {
 
           showMessage(
@@ -404,13 +497,17 @@ bookingForm.addEventListener(
       );
 
 
-      nameInput.value = "";
+      nameInput.value =
+        "";
 
-      phoneInput.value = "";
+      phoneInput.value =
+        "";
 
-      serviceInput.value = "";
+      serviceInput.value =
+        "";
 
-      dateInput.value = "";
+      dateInput.value =
+        "";
 
 
       resetTimeSelect(
@@ -437,6 +534,7 @@ bookingForm.addEventListener(
 
       bookingButton.textContent =
         "Закажи термин";
+
     }
 
   }
